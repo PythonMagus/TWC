@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            div {
+                margin: 0px 1px;
+            }
+            .Ribbon {
+                width: 280px;
+                height: 86px;
+                background: url(/images/ribbon.png) center no-repeat;
+                text-align: center;
+                display: table-cell;
+                vertical-align: middle;
+            }
+            .Star {
+                display: inline-block;
+                width: 70px;
+                height: 70px;
+                background: url(/images/star.png) center no-repeat;
+                background-size: 70px 70px;
+            }
+            .Bar {
+                display: inline-block;
+                width: 17px;
+                height: 68px;
+                background: url(/images/bar.png) center no-repeat;
+                background-size: 17px 68px;
+                margin-top: 1px;
+            }
+            .Diamond {
+                display: inline-block;
+                width: 15px;
+                height: 70px;
+                background: url(/images/diamond.png) center no-repeat;
+                background-size: 15px 40px;
+            }
+            .Pip {
+                display: inline-block;
+                width: 19px;
+                height: 70px;
+                background: url(/images/pip.png) center no-repeat;
+                background-size: 19px 22px;
+            }
+
+        </style>
+        <script>
+            function setup() {
+                document.querySelector('input').onkeyup = redo;
+            }
+            var awards = [{name: 'Star', p: 80}, {name: 'Bar', p: 20}, {name: 'Diamond', p: 5}, {name: 'Pip', p: 1}];
+            function redo() {
+                var parent = document.querySelector('.Ribbon');
+                parent.innerHTML = '';
+                var bits = [];
+                var value = parseInt(document.querySelector('input').value);
+                if (isNaN(value)) return;
+                function add(s) {
+                    if (bits.length % 2)
+                        bits.unshift(s);
+                    else
+                        bits.push(s);
+                }
+                for (var i = 0; i < awards.length; i++) {
+                    var level = awards[i];
+                    var num = Math.floor(value / level.p);
+                    for (var j = 0; j < num; j++)
+                        add(level.name);
+                    value -= num * level.p;
+                }
+                for (var i = 0; i < bits.length; i++) {
+                    var node = document.createElement('div');
+                    node.className = bits[i];
+                    parent.appendChild(node);
+                }
+            }
+        </script>
+    </head>
+    <body onload="setup()">
+        <div style="display: table; height: 100px; overflow: hidden;">
+        <div class="Ribbon"></div>
+        </div>
+        <label>Enter points</label>
+        <input>
+    </body>
+</html>

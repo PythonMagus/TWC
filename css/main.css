@@ -1,0 +1,333 @@
+body, a, th
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+img.Ribbon
+{
+    width: 108px;
+    height: 32px;
+    margin: 2px;
+}
+.Banner
+{
+    background: url("/images/TWCHeader.jpg") no-repeat center;
+    width: 100%;
+    height:  128px;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    margin-top:20px;
+}
+.Instructions
+{
+    padding: 8px 30px;
+    border: 3px solid #600;
+    margin: 8px auto;
+    font-size:16px;
+    width: 400px;
+    display: block;
+}
+.Login
+{
+    margin-top: 100px;
+    width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid gray;
+}
+.Login table
+{
+    margin: 8px;
+}
+.Login th
+{
+    text-align: left;
+    width: 50%;
+}
+.Login .ButtonBar
+{
+    text-align: center;
+    padding: 4px;
+    margin-top:32px;
+}
+.Login .ForgotWrapper
+{
+    margin-top: 48px;
+    text-align: center;
+    font-size: 11px;
+}
+.CompletedBattles td, .CurrentBattles td, table.Battles td, table.Users td
+{
+    padding: 1px 18px;
+}
+div.CurrentBattles, div.UserDetails, div.CompletedBattles, div.BattleDetails, div.BattleEditor, div.UserEditor, div.ForgotPassword
+{
+    margin-left: 40px;
+}
+td.ErrorMsg
+{
+    padding-top: 8px;
+    font-weight: bold;
+    color: #900;
+}
+body>div.ButtonBar
+{
+    padding: 2px 20px;
+    text-align: center;
+    background-color: #def;
+}
+body>div.ButtonBar button
+{
+    margin: 0px 8px;
+    width: 180px;
+}
+div.UserDetails, div.CurrentBattles
+{
+    display: inline-block;
+    width: 400px;
+
+}
+div.UserDetails th, div.ForgotPassword th
+{
+    text-align: left;
+    vertical-align: top;
+    padding-top: 3px;
+}
+div.CurrentBattles td.Date
+{
+    text-align: right;
+    padding-right: 4px;
+}
+form.EmailText
+{
+    display: block;
+    padding: 4px;
+    background-color: #efe;
+}
+form.EmailText button.Hide
+{
+    float: right;
+}
+form.EmailText textarea,form.EndBattle textarea
+{
+    min-width: 300px;
+    min-height: 80px;
+    resize: both;
+}
+form.EmailText div.ButtonBar
+{
+    text-align: center;
+}
+div.BattleEditor table
+{
+    min-height: 300px;
+}
+div.BattleEditor table tr.Players
+{
+    height: 100%;
+}
+div.BattleEditor table th, div.BattleEditor table tr.Players td, div.UserEditor table th, div.Tournament table th
+{
+    text-align: left;
+    vertical-align: top;
+}
+div.BattleEditor table select, div.Tournament table select
+{
+    margin: 2px;
+}
+form div.ButtonBar
+{
+    padding: 2px 20px;
+    text-align: center;
+    background-color: #def;
+}
+form div.ButtonBar button, form div.ButtonBar input[type="submit"]
+{
+    margin: 0px 8px;
+    width: 180px;
+}
+input.Error
+{
+    border-color: #900;
+    background-color: #fee;
+    color: #600;
+}
+input.Points
+{
+    text-align: right;
+}
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+    content: " \25B4\25BE";
+    cursor: n-resize;
+}
+table.sortable th.sorttable_sorted_reverse:after, span#sorttable_sortfwdind {
+    cursor: n-resize;
+}
+table.sortable th.sorttable_sorted_reverse:after, span#sorttable_sortrevind
+{
+    cursor: s-resize;
+}
+input[type="submit"]:disabled, button:disabled
+{
+    cursor: not-allowed;
+}
+div.Title, div.Subtitle
+{
+text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;  
+}
+div.Title
+{
+    font-size:32px;
+}
+div.Footer
+{
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    padding: 3px;
+    background-color: #009;
+    color: #ffe;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+}
+div.PushUp
+{
+    width: 100%;
+    height: 26px;
+}
+table.Users td
+{
+    border-bottom: 1px dotted gray;
+}
+table.Users tr:first-child td
+{
+    border-top: 3px double gray;
+}
+div.DrawPanel .TableWrapper
+{
+    display: inline-block;
+}
+table.EliminationCanvas th, table.ConsolationCanvas th
+{
+    text-align: center;
+}
+table.EliminationCanvas td.Player>*, table.ConsolationCanvas td.Player>*
+{
+    display: block;
+    background-color: #990;
+    color: #fff;
+    border: 1px solid grey;
+    padding: 2px 0px 2px 4px;
+    min-width: 80px;
+    min-height: 24px;
+}
+table.EliminationCanvas td.Player.Won>*, table.ConsolationCanvas td.Player.Won>*
+{
+    background-color: #090;
+}
+table.EliminationCanvas td.Player.Lost>*, table.ConsolationCanvas td.Player.Lost>*
+{
+    background-color: #666;
+}
+table.EliminationCanvas td.Group, table.ConsolationCanvas td.Group
+{
+    border-top: 1px dotted grey;
+    border-right: 1px dotted grey;
+    border-bottom: 1px dotted grey;
+}
+table.EliminationCanvas td.B, table.ConsolationCanvas td.B
+{
+    border-bottom: 1px dotted grey;
+}
+table.ConsolationCanvas
+{
+    float: right;
+}
+div.Space
+{
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+}
+div.Award
+{
+    padding: 3px;
+}
+div.Award img
+{
+    max-width: 48px;
+    max-height: 48px;
+}
+div.Award span
+{
+    display: block;
+    font-weight: bold;
+}
+.PyramidPanel>div
+{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 2px 10px;
+}
+.PyramidPanel .Player
+{
+    display: inline-block;
+    margin: 2px;
+    padding: 2px;
+    border: 1px dotted grey;
+}
+.PyramidPanel .Player button.Challenge
+{
+    background: url(/images/crossedSwords.png) center no-repeat;
+    background-size: 18px 18px;
+    width: 20px;
+    height: 20px;
+}
+.PyramidPanel .Level0
+{
+    background-color: #fef;
+    width: 20%;
+}
+.PyramidPanel .Level1
+{
+    background-color: #eef;
+    width: 32%;
+}
+.PyramidPanel .Level2
+{
+    background-color: #efe;
+    width: 44%;
+}
+.PyramidPanel .Level3
+{
+    background-color: #ffe;
+    width: 55%;
+}
+.PyramidPanel .Level4
+{
+    background-color: #ffe8e0;
+    width: 67%
+}
+.PyramidPanel .Level5
+{
+    background-color: #fee;
+    width: 79%;
+}
+.PyramidPanel .Level6
+{
+    background-color: #aaa;
+    width: 90%;
+}
+.Challenge textarea
+{
+    width: 400px;
+    height: 100px;
+}
