@@ -59,7 +59,7 @@ htmlHeader("Battle Details - $type $name");
         <div class="ButtonBar">
             <button onclick="document.location='/';">Home</button>
             <button onclick="document.location='battles.php';">All battles</button>
-<? if ($_SESSION['admin']) { ?>
+<? if ($_SESSION['admin'] && $state < 2) { ?>
             <button onclick="document.location='registerBattle.php?id=<?= $id ?>';">Edit players</button>
     <? if ($state == 0) { ?>
             <button onclick="requestEmailText('start');">Start</button>

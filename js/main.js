@@ -267,12 +267,12 @@ function drawEliminationTable() {
         row = spacing;
         for (row = spacing; row < rows.length; row+= 4 * spacing) {
             rows[row].push({c: 'Group', rowspan: 2 * spacing, level: d + 'b'});
-            rows[row + 2 * spacing].push({c: 'Blank', rowspan: row + spacing < rows.length ? 2 * spacing : spacing, level: d + 'b'});
+            if (rows[row + 2 * spacing]) rows[row + 2 * spacing].push({c: 'Blank', rowspan: row + spacing < rows.length ? 2 * spacing : spacing, level: d + 'b'});
         }
-            rows[0].push({c: 'B', rowspan: spacing * 2, level: d + 'a'});
-            for (var row = spacing * 2; row + spacing * 4 < rows.length; row+= spacing * 4)
-                rows[row].push({c: 'B', rowspan: spacing * 4, level: d + 'a'});
-            rows[rows.length - spacing * 2].push({c: 'Blank', rowspan: spacing * 2, level: d + 'a'});
+        rows[0].push({c: 'B', rowspan: spacing * 2, level: d + 'a'});
+        for (var row = spacing * 2; row + spacing * 4 < rows.length; row+= spacing * 4)
+            rows[row].push({c: 'B', rowspan: spacing * 4, level: d + 'a'});
+        rows[rows.length - spacing * 2].push({c: 'Blank', rowspan: spacing * 2, level: d + 'a'});
 
         rows[0].push({c: 'Blank', rowspan: row = Math.pow(2, d) - 1, level: d});
         var step = Math.pow(2, d + 1) - 2;
