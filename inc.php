@@ -2,9 +2,24 @@
     error_reporting( E_ALL );
     $site = 'https://twc.redwaratah.com';
     $adminEmail = 'twc@twc.redwaratah.com';
-    $GLOBALS['version'] = '0.5';
-    define('DEBUG_SESSION', false);
-    define('TESTING', true);
+    $GLOBALS['version'] = '0.6';
+    if (strpos(getcwd(), 'twctest') === false)
+    {
+        $GLOBALS['DEBUG_SESSION'] = false;
+        $GLOBALS['TESTING'] = true;
+        $GLOBALS['DATABASE'] = 'maneschi_twc';
+        $GLOBALS['TITLE'] = 'The Wargaming Club';
+    }
+    else
+    {
+        $site = 'https://twctest.redwaratah.com';
+        $adminEmail = 'twc@twc.redwaratah.com';
+        $GLOBALS['version'] .= 'test';
+        $GLOBALS['DEBUG_SESSION'] = true;
+        $GLOBALS['TESTING'] = true;
+        $GLOBALS['DATABASE'] = 'maneschi_twc_test';
+        $GLOBALS['TITLE'] = '***TEST*** The Wargaming Club ***TEST***';
+    }
 
     class session {
         function __construct() {
@@ -47,7 +62,7 @@
            // session_regenerate_id(true);    
         }
         function open() {
-            $this->db = new mysqli('localhost', 'maneschi_twc', 'k,={iJ5e}O!Q', 'maneschi_twc');
+            $this->db = new mysqli('localhost', 'maneschi_twc', 'k,={iJ5e}O!Q', $GLOBALS['DATABASE']);
             return true;
         }
         function close() {
@@ -82,7 +97,7 @@
            $this->w_stmt->bind_param('siss', $id, $time, $data, $key);
            $this->w_stmt->execute();
            $sId = substr($id, 0,8);
-           if (DEBUG_SESSION) dLog("Updated $sId...");
+           if ($GLOBALS['DEBUG_SESSION']) dLog("Updated $sId...");
            return true;
         }
 
@@ -92,7 +107,7 @@
            }
            $this->delete_stmt->bind_param('s', $id);
            $this->delete_stmt->execute();
-           if (DEBUG_SESSION) dLog("Destroyed $id");
+           if ($GLOBALS['DEBUG_SESSION']) dLog("Destroyed $id");
            return true;
         }
 
@@ -104,7 +119,7 @@
            $this->gc_stmt->bind_param('s', $old);
            $this->gc_stmt->execute();
            $this->gc_stmt->store_result();
-           if (DEBUG_SESSION) dLog("GCed {$this->gc_stmt->num_rows} (older than $max)");
+           if ($GLOBALS['DEBUG_SESSION']) dLog("GCed {$this->gc_stmt->num_rows} (older than $max)");
            return true;
         }
 
@@ -363,7 +378,7 @@ function htmlHeader($title)
     <body onload="">
         <div class="Banner">
             <img src="/images/Logo.jpg" width="64">
-            <div class="Title">The Wargaming Club</div>
+            <div class="Title"><?= $GLOBALS['TITLE'] ?></div>
             <div class="Subtitle">Office of Records</div>
         </div>
 <?
@@ -406,8 +421,8 @@ function getAllUsers() {
 }
 function sendMail($recipients, $subject, $message) {
     global $adminEmail;
-    if (TESTING)
-        foreach($recipients as $index => $email))
+    if ($GLOBALS['TESTING'])
+        foreach($recipients as $index => $email)
             if (array_search($email, explode('.','nlancier@gmail.com,pythonmagus@redwaratah.com,lordlau1@gmail.com,nedfn1@comcast.net')) !== FALSE)
                 $recipients[$index] = str_replace('@', '_', $email) . "@redwaratah.com";
     mail(join(",", $recipients), $subject, $message, "From: Club Admin <$adminEmail>");

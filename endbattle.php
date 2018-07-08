@@ -159,8 +159,6 @@ function resetThePyramid($tournamentId) {
             return $b['level'] - $a['level'];
     }
     usort($leaders, "levelThenOlder");
-    dLog(var_export($usersLevel,true));
-    dLog(var_export($leaders, true));
     $awards = array();
     $participation = 0;
     $stmt = $session->db->prepare('SELECT id, level FROM tournamentawards WHERE tournamentid = ?');
@@ -242,7 +240,7 @@ if ($_POST)
         $user = getUserDetails($userId);
         $desc = ($result == 90 ? 'lost' : ($result == 1 ? 'WON!!!' : ("came " . $results[$result] . " in"))) . " $type $name and scored $points points.";
         dLog("Player {$user['alias']} $desc");
-        sendMail($user['email'], "TWC Battle $type $name has completed", 
+        sendMail(array($user['email']), "TWC Battle $type $name has completed", 
             "You $desc\n{$_POST['message']}\n \nCheck the results: $site/battle.php?id=$id\nCheck your ribbons: $site");
         if ($tournamentId) {
             if (!$winner['id'] || $winner['points'] < $points) $winner = array('id' => $userId, 'points' => $points);

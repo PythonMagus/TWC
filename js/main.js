@@ -107,7 +107,7 @@ function loadTournament() {
         var drawAccepted = document.querySelector('#drawAccepted');
         loadDateEditor(document.querySelector('input[name="started"]'));
         function calculateSaveValidity() {
-             saveButton.disabled = state == 'Completed' || !players.length || !nameField.value || 
+             saveButton.disabled = state == 'Complete' || !players.length || !nameField.value || 
                 (stateSelect.selectedIndex == 1 && (players.length < 2 || typeSelect.selectedIndex == 0 && !drawAccepted.checked));
         }
         nameField.onkeyup = drawAccepted.onclick = calculateSaveValidity;
@@ -197,7 +197,7 @@ function drawAwards(state) {
         var award = settings[i == 4 ? 90 : i];
         if (state != 'Recruiting' && !award.url) continue;
         var node = document.createElement('div');
-        node.className='Award';
+        node.className='Award Medium';
         node.innerHTML = [
             '<img src="' + (award.url || '/images/missing.png') + '">',
             '<span>' + award.type + '</span>',
@@ -279,8 +279,8 @@ function drawEliminationTable() {
         var playOff = 0;
         while (true) {
             var pair = pairings[(d + 1) + '-' + playOff];
+            var previousA = pairings[d + '-' + (2 * playOff)];
             if (!pair) {
-                var previousA = pairings[d + '-' + (2 * playOff)];
                 var previousB = pairings[d + '-' + (2 * playOff + 1)];
                 if (previousA && previousB && (previousA.victor || previousB.victor)) {
                     pair = pairings[(d + 1) + '-' + playOff] = {
@@ -291,6 +291,9 @@ function drawEliminationTable() {
                     }
                     if (pair.a && pair.b) complete.push(pair);
                 }
+            } else if (previousA) {
+                if (pair.b == previousA.a || pair.b == previousA.b)
+                    pair = {a: pair.b, b: pair.a, round: pair.round, victor: pair.victor ? 3 - pair.victor : 0}
             }
             if (pair) pair.playOff = playOff;
             if (d == depth && previousA && previousA.victor)
@@ -653,7 +656,7 @@ function validateCardinal(node)
 }
 function validateDate(node)
 {
-    node.className = node.className.replace(/ ?\bError\b/, '');
+    node.className = node.className.replace(/ ?\bError\b/g, '');
     var parts = /^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(node.value);
     if (parts)
     {
@@ -694,7 +697,7 @@ function loadPlayerEditor()
         inputs.alias.onkeyup = inputs.email.onkeyup = inputs.created.onkeyup = function(evt) {if (validateRequiredString(evt.target)) validate()};
         if (inputs.battles)
             inputs.battles.onkeyup = inputs.victories.onkeyup = inputs.points.onkeyup = function(evt) {if (validateCardinal(evt.target)) validate()};
-        inputs.password.onkeyup = inputs['confirm'].onkeyup = function(evt) {evt.target.className = evt.target.className.replace(/ ?\bError\b/, ''); validate()};
+        inputs.password.onkeyup = inputs['confirm'].onkeyup = function(evt) {evt.target.className = evt.target.className.replace(/ ?\bError\b/g, ''); validate()};
         validate();
     });
 }

@@ -265,6 +265,11 @@ div.Award img
     max-width: 48px;
     max-height: 48px;
 }
+div.Award.Medium img
+{
+    max-width: 128px;
+    max-height: 128px;
+}
 div.Award span
 {
     display: block;
