@@ -4,7 +4,7 @@ import re, smtplib,time,os, mysql.connector
 
 USER = 'reports@twc.redwaratah.com'
 PASS = 'f-4Wmg8f@Es4'
-TEST = FALSE
+TEST = False
 LOGFILE = '/home/maneschi/logs/twc0.6.log'
 NOW = time.strftime('%d-%B %H:%m')
 LASTWEEK = time.strftime('%d-%B %H:%M', time.localtime(time.time() - 7 * 86400))

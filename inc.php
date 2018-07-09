@@ -242,13 +242,16 @@
         while ($stmt->fetch()) 
             $result['otherRibbons'][$ribbonName] = $ribbonImage;
 
-        $stmt = $session->db->prepare("SELECT t.id,name, level, url FROM tournamentusers tu JOIN tournaments t on tu.tournamentid = t.id JOIN tournamentawards ta ON tu.awardid = ta.id WHERE tu.userId = ? ORDER BY level");
+        $stmt = $session->db->prepare("SELECT t.id, t.name, level, url, g.name FROM tournamentusers tu JOIN tournaments t on tu.tournamentid = t.id " .
+            "JOIN tournamentawards ta ON tu.awardid = ta.id LEFT JOIN gametypes g ON g.id = t.gametypeid WHERE tu.userId = ? ORDER BY level");
         $stmt->bind_param('i', $id);
-        if (!$stmt->execute()) dLog("fail - SELECT t.id,name, level, url FROM tournamentusers tu JOIN tournaments t on tu.tournamentid = t.id JOIN tournamentawards ta ON tu.awardid = ta.id WHERE tu.userId = $id ORDER BY level");
+        if (!$stmt->execute()) dLog("fail - SELECT t.id, t.name, level, url, g.name FROM tournamentusers tu JOIN tournaments t on tu.tournamentid = t.id " .
+            "JOIN tournamentawards ta ON tu.awardid = ta.id LEFT JOIN gametypes g ON g.id = t.gametypeid WHERE tu.userId = $id ORDER BY level");
         $stmt->store_result();
-        $stmt->bind_result($tournamentId, $tournamentName, $awardLevel, $url);
+        $stmt->bind_result($tournamentId, $tournamentName, $awardLevel, $url, $type);
+        if (!$type) $type = "General";
         while ($stmt->fetch()) {
-            array_push($result['tournaments'], array('id' => $tournamentId, 'name' => $tournamentName, 'type' => $results[$awardLevel],'url' => $url));
+            array_push($result['tournaments'], array('id' => $tournamentId, 'name' => "$type $tournamentName", 'type' => $results[$awardLevel],'url' => $url));
         }
 
         return $result;
