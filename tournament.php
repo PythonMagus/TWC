@@ -23,41 +23,6 @@ if (!$id) {
     $stmt->store_result();
     $stmt->bind_result($name, $state, $type, $gametypeid, $started, $ended);
     $stmt->fetch();
-    $stmt = $session->db->prepare('SELECT level, url, userid FROM tournamentawards ta LEFT JOIN tournamentusers tu ON ta.id = tu.awardid WHERE ta.tournamentid = ?');
-    $stmt->bind_param('i', $id);
-    if (!$stmt->execute()) dLog("fail - SELECT level, url, userif FROM tournamentawards ta LEFT JOIN tournamentusers tu ON ta.id = tu.awardid WHERE tournamentid = $id");
-    $stmt->store_result();
-    $stmt->bind_result($level, $url, $userid);
-    while ($stmt->fetch()) {
-        $awards[$level]['url'] = $url;
-        $awards[$level]['player'] = $userid;
-
-    }
-    if ($type == 1 && $state > 0) {// A Pyramid game in progress
-        $levels = array();
-        $battles = array();
-        $stmt = $session->db->prepare('SELECT tu.userId, ub.battleId, ub.result FROM tournamentusers tu LEFT JOIN tournamentbattles tb ON tu.tournamentid = tb.tournamentid ' .
-                    'LEFT JOIN userbattles ub on tb.battleid = ub.battleid AND tu.userId = ub.userId WHERE tu.tournamentid = ? ORDER BY tb.battleId');
-        $stmt->bind_param('i', $id);
-        if (!$stmt->execute()) dLog("fail - SELECT tu.userId, ub.battleId, ub.result FROM tournamentusers tu LEFT JOIN tournamentbattles tb ON tu.tournamentid = tb.tournamentid ".
-                    "LEFT JOIN userbattles ub on tb.battleid = ub.battleid AND tu.userId = ub.userId WHERE tu.tournamentid = ? ORDER BY tb.battleId");
-        $stmt->store_result();
-        $stmt->bind_result($userId, $battleId, $result);
-        while ($stmt->fetch()) {
-            if (!array_key_exists($userId, $levels)) $levels[$userId] = 1;
-            if (!$battleId) continue;
-            if ($result == 1)
-                $levels[$userId]++;
-            elseif ($result !== NULL && $result != 0) {
-                if ($levels[$userId] > 1) $levels[$userId]--;
-            } else {
-                if (!array_key_exists($battleId, $battles)) 
-                    $battles[$battleId] = array($userId);
-                else
-                    array_push($battles[$battleId], $userId);
-            }
-        }
-    }
 }
 $users = getAllUsers();
 
@@ -159,7 +124,7 @@ if ($_POST && $_SESSION['admin']) {
             $uploadOk = 0;
         } 
         if ($uploadOk) {
-            if (file_exists($targetFile)) unlink($targetFile);
+            if (file_exists($target_file)) unlink($target_file);
             move_uploaded_file($file["tmp_name"], $target_file);
             $target_file = '/' . $target_file;
             if ($value['url']) {
@@ -214,6 +179,44 @@ if ($_POST && ($state == 0 || $state == 1 && $type == 1)) {
         dLog("Tournament $name ($id): I " . $_POST['myaction']);
     }
 }
+
+/* Load awards */
+$stmt = $session->db->prepare('SELECT level, url, userid FROM tournamentawards ta LEFT JOIN tournamentusers tu ON ta.id = tu.awardid WHERE ta.tournamentid = ?');
+$stmt->bind_param('i', $id);
+if (!$stmt->execute()) dLog("fail - SELECT level, url, userif FROM tournamentawards ta LEFT JOIN tournamentusers tu ON ta.id = tu.awardid WHERE tournamentid = $id");
+$stmt->store_result();
+$stmt->bind_result($level, $url, $userid);
+while ($stmt->fetch()) {
+    $awards[$level]['url'] = $url;
+    $awards[$level]['player'] = $userid;
+
+}
+if ($type == 1 && $state > 0) {// A Pyramid game in progress
+    $levels = array();
+    $battles = array();
+    $stmt = $session->db->prepare('SELECT tu.userId, ub.battleId, ub.result FROM tournamentusers tu LEFT JOIN tournamentbattles tb ON tu.tournamentid = tb.tournamentid ' .
+                'LEFT JOIN userbattles ub on tb.battleid = ub.battleid AND tu.userId = ub.userId WHERE tu.tournamentid = ? ORDER BY tb.battleId');
+    $stmt->bind_param('i', $id);
+    if (!$stmt->execute()) dLog("fail - SELECT tu.userId, ub.battleId, ub.result FROM tournamentusers tu LEFT JOIN tournamentbattles tb ON tu.tournamentid = tb.tournamentid ".
+                "LEFT JOIN userbattles ub on tb.battleid = ub.battleid AND tu.userId = ub.userId WHERE tu.tournamentid = $id ORDER BY tb.battleId");
+    $stmt->store_result();
+    $stmt->bind_result($userId, $battleId, $result);
+    while ($stmt->fetch()) {
+        if (!array_key_exists($userId, $levels)) $levels[$userId] = 1;
+        if (!$battleId) continue;
+        if ($result == 1)
+            $levels[$userId]++;
+        elseif ($result !== NULL && $result != 0) {
+            if ($levels[$userId] > 1) $levels[$userId]--;
+        } else {
+            if (!array_key_exists($battleId, $battles)) 
+                $battles[$battleId] = array($userId);
+            else
+                array_push($battles[$battleId], $userId);
+        }
+    }
+}
+
 $draw = "";
 if ($state != 0 && $type == 0) {
     $stmt = $session->db->prepare('SELECT round, playoff, tu.battleId, byePlays, userId, result FROM tournamentbattles tu ' .

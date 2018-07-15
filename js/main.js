@@ -194,7 +194,8 @@ function drawAwards(state) {
     var destination = document.querySelector('div.Awards');
     var settings = JSON.parse(document.querySelector('#awards').value);
     for (var i = 1; i <= 4; i++) {
-        var award = settings[i == 4 ? 90 : i];
+        var id = i == 4 ? 90 : i;
+        var award = settings[id];
         if (state != 'Recruiting' && !award.url) continue;
         var node = document.createElement('div');
         node.className='Award Medium';
@@ -202,7 +203,7 @@ function drawAwards(state) {
             '<img src="' + (award.url || '/images/missing.png') + '">',
             '<span>' + award.type + '</span>',
             i != 4 && award.player ? '<a href="/user.php?id=' + award.player + '">' + playerLU[award.player] + '</a>' : '',
-            state == 'Recruiting' ? '<input type="file" name="award' + i + '" value="Upload image">' : ''
+            state == 'Recruiting' ? '<input type="file" name="award' + id + '" value="Upload image">' : ''
         ].join('');
         destination.append(node);
     }
@@ -443,9 +444,9 @@ function drawPyramid() {
         var row = rows[level];
         row.push({userId: userId, alias: playerLU[userId], battle: Boolean(userBattles[userId])});
     }
-    var myLevel = me ? levels[me] - 1 : 0;
+    var myLevel = levels[me] ? levels[me] - 1 : 0;
     var iMayChallenge = [];
-    if (me && !userBattles[me]) {
+    if (levels[me] && !userBattles[me]) {
         for (var i = 0, playersOnMyLevel = rows[myLevel]; i < playersOnMyLevel.length; i++)
             if (!playersOnMyLevel[i].battle && playersOnMyLevel[i].userId != me)
                 iMayChallenge.push(playersOnMyLevel[i].userId);

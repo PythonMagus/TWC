@@ -203,7 +203,7 @@
             $result['email'] = $email;
             $result['alias'] = $alias;
             $result['since'] = strtotime($created);
-            $result['years'] = 1 + (new DateTime(date('Y-m-d', $result['since'])))->diff(new DateTime())->y;
+            $result['years'] = (new DateTime(date('Y-m-d', $result['since'])))->diff(new DateTime())->y;
             $result['lastLogin'] = $lastLogin > '0000-00-00 00:00:00' ? strtotime($lastLogin) : '';
             $result['otherRibbons'] = array();
             $result['tournaments'] = array();
