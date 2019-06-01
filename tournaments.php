@@ -30,26 +30,53 @@ if (!$stmt->execute()) dLog('fail -SELECT t.id, t.name, t.type, t.state, t.start
     'LEFT JOIN gametypes gt on t.gametypeId = gt.id ORDER BY started DESC, t.id, u.alias');
 $stmt->store_result();
 $stmt->bind_result($id, $name, $type, $state, $started, $userId, $userName, $gametype);
-htmlHeader("All Battles");
+$look = 'new';
+htmlHeader("All Battles", $look);
 $lastId = 0;
 $tournaments = array();
+$navigationTabs = array(
+    array('alt' => 'My Challenges', 'img' => 'tab-1.png', 'link' => '/challenges.php'),
+    array('alt' => 'All Battles', 'img' => 'tab-2.png', 'link' => '/battles.php'),
+    array('alt' => 'All Generals', 'img' => 'tab-3.png', 'link' => '/users.php'),
+    array('alt' => 'All Tournaments', 'img' => 'tab-4.png', 'link' => '/tournaments.php')
+);
+if ($_SESSION['admin']) array_push($navigationTabs, 
+    array('alt' => 'Register Battle', 'img' => 'tab-5.png', 'link' => '/battle.php'));
+setLeftBlock($navigationTabs);
 ?>
-        <div class="ButtonBar">
-            <button onclick="document.location='/';">Home</button>
-<? if ($_SESSION['admin']) { ?>
-            <button onclick="document.location='tournament.php';">Create</button>
-<? } ?>
-        </div>
         <script>
+            var look = '<?= $look ?>';
             var statuses = <?= json_encode($tournamentStates); ?>;
             var types = <?= json_encode($tournamentTypes); ?>;
             setTournamentFilters();
         </script>
-    <h2>All Tournaments</h2>
-    <p>A list of <select class="StatusFilter"><option>All</option></select> tournaments of type <select class="TypeFilter"><option>All</option></select> 
-        (game type <select class="GameTypeFilter"><option>All</option></select>) containing <input class="TextFilter" placeholder="any"> text.</p>
-    <table class="Tournaments sortable">
-        <tr><th>Started</th><th>Type</th><th>Game</th><th>Name</th><th>State</th><th>Players</th></tr>
+        <div id="tab-tournament" class="tab-pane active">
+          <div class="body-box">
+            <div class="title">
+                <h2><span><img src="/html/images/text-all-tournament.png" alt=""></span></h2>
+                <div class="button-block">
+                    <a href="/">Home</a>
+<?
+    if ($_SESSION['admin']) echo '<a href="/tournament.php">Create</a>';
+?>
+                </div>
+            </div>
+            <div class="sort-block">
+                <h3>
+                    <span class="White">A list of </span>
+                    <div id="statusFilter">All </div>
+                    <span class="White">tournaments of type </span>
+                    <div id="typeFilter">All</div>
+                    <span class="White">(game type </span>
+                    <div id="gameTypeFilter">All</div>
+                    <span class="White">) containing </span>
+                    <input class="TextFilter" placeholder="any">
+                    <span class="White">Text </span>
+                </h3>
+            </div>
+            <div class="content-block">
+                <table class="Tournaments sortable">
+                    <tr><th>Started</th><th>Type</th><th>Game</th><th>Name</th><th>State</th><th>Players</th></tr>
 <?  while ($stmt->fetch()) { 
         if (!$gametype) $gametype = "General";
         $known[$gametype] = true;
@@ -91,4 +118,4 @@ $tournaments = array();
 ?>
         ];
     </script>
-<?  htmlFooter() ?>
+<?  htmlFooter($look) ?>

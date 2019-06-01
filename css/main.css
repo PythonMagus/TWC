@@ -173,8 +173,11 @@ input.Points
     text-align: right;
 }
 table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
-    content: " \25B4\25BE";
+    background: url(/html/images/sort-up.png) center no-repeat;
     cursor: n-resize;
+    width: 12px;
+    height: 6px;
+    display: block;
 }
 table.sortable th.sorttable_sorted_reverse:after, span#sorttable_sortfwdind {
     cursor: n-resize;
@@ -349,4 +352,8 @@ div.Award span
 {
     width: 400px;
     height: 100px;
+}
+h3>span.White
+{
+    color: white;
 }

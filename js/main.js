@@ -570,6 +570,7 @@ function setBattleFilters()
 function setTournamentFilters()
 {
     window.addEventListener('load', function() {
+        if (look == 'new') return setNewTournamentFilters();
         var state = document.querySelector('select.StatusFilter');
         var type = document.querySelector('select.TypeFilter');
         var gametype = document.querySelector('select.GameTypeFilter');
@@ -623,7 +624,7 @@ function setTournamentFilters()
             for (var i = 0, nodes = document.querySelectorAll('td.GameType'); i < nodes.length; i++)
             {
                 var row = nodes[i].parentNode;
-                row.showType =  (newGameType == 'All' || nodes[i].innerHTML.trim() == newGameType);
+                row.showGameType =  (newGameType == 'All' || nodes[i].innerHTML.trim() == newGameType);
                 display(row);
             }
         }
@@ -638,6 +639,55 @@ function setTournamentFilters()
             }
         }
     });
+}
+// Displays Saikat's format
+function setNewTournamentFilters() {
+    for (var i = 0, rows = document.querySelectorAll('table.Tournaments tbody tr'); i < rows.length; i++) {
+        var row = rows[i];
+        row.showName = row.showType = row.showState = row.showGameType = true;
+    }
+    function display(row) {
+            row.style.display = row.showName && row.showState && row.showType && row.showGameType ? '' : 'none';
+    }
+    var filter = document.querySelector('input.TextFilter');
+    filter.onkeyup = function(){
+        var patt = new RegExp('\\b' + filter.value, 'i');
+        for (var i = 0, nodes = document.querySelectorAll('td.Name a'); i < nodes.length; i++)
+        {
+            var row = nodes[i].parentNode.parentNode;
+            row.showName =  patt.test(nodes[i].innerHTML);
+            display(row);
+        }
+    }
+    function dropDownFilter(id, values, property, columnClass) {
+        var dropdown = $('#' + id);
+        dropdown.html('<button id="' + id + '-button" class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="bttns">All <span>' + 
+            '<img src="/html/images/border-caret.png" alt=""></span></span></button> <ul class="dropdown-menu" aria-labelledby="' + id + 
+            '-button"> </ul>');
+        dropdown.addClass('dropdown');
+        var list = $('#' + id + ' ul')[0];
+        function addItem(value) {
+            var li = document.createElement('li');
+            list.appendChild(li);
+            var a = document.createElement('a');
+            li.appendChild(a);
+            a.setAttribute('href', '#');
+            a.innerHTML = value;
+            a.onclick = function(evt) {
+                for (var i = 0, nodes = document.querySelectorAll('td.' + columnClass); i < nodes.length; i++) {
+                    var row = nodes[i].parentNode;
+                    row[property] =  (value == 'All' || nodes[i].innerHTML.trim() == value);
+                    display(row);
+                }
+            }
+        }
+        addItem('All');
+        for (var i = 0; i < values.length; i++) addItem(values[i]);
+        $('#' + id + ' button').dropdown();
+    }
+    dropDownFilter('statusFilter', statuses, 'showState', 'State');
+    dropDownFilter('typeFilter', types, 'showType', 'Type');
+    dropDownFilter('gameTypeFilter', gametypes, 'showGameType', 'GameType');
 }
 function setUserFilters()
 {

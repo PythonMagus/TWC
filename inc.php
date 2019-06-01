@@ -378,8 +378,8 @@
     }
 
 
-function htmlHeader($title)
-{
+function htmlHeader($title, $look = 'old') {
+    if ($look == 'old') {
 ?>
 <!DOCTYPE html>
 <html>
@@ -399,14 +399,94 @@ function htmlHeader($title)
             <div class="Subtitle">Office of Records</div>
         </div>
 <?
+    } else { // new
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>The Wargaming Club</title>
+        <!-- Bootstrap Core CSS -->
+        <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
+
+        <!--Website CSS -->
+        <link href="/css/style.css" type="text/css" rel="stylesheet">
+
+        <!-- FontAwesome CSS -->
+        <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <!-- Custom Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/pikaday.js"></script>
+        <script src="/js/sorttable.js"></script>
+	<script src="/html/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+<?
+    }
 }
-function htmlFooter() {
+function setLeftBlock($arr) {
+?>
+    <div class="all-inner">
+        <div class="lt-block">
+            <ul>
+<?
+    foreach($arr as $rec) {
+        echo "<li><a title=\"{$rec['alt']}\"";
+        if (array_key_exists('link', $rec)) echo " href=\"{$rec['link']}\"";
+        if (array_key_exists('js', $rec)) echo " onclick=\"{$rec['js']};return false;\"";
+        echo "><span><img src=\"/html/images/{$rec['img']}\" alt=\"{$rec['alt']}\"></span></a></li>";
+    }
+?>
+            </ul>
+        </div>
+        <div class="rt-block">
+            <div class="header">
+                <div class="lt-box">
+                    <a href="#"><span><img src="/html/images/inner-logo-title.png" alt=""></span></a>
+                </div>
+                <div class="rt-box">
+                    <a href="/editUser.php">Change Password</a>
+                    <a href="/logout.php">Log out </a>
+                </div>
+            </div>
+            <div class="all-body">
+                <div class="tab-content">
+        
+<?
+}
+function htmlFooter($look = 'old') {
+    if ($look == 'old') {
 ?>
         <div class="PushUp">&nbsp;</div>
         <div class="Footer">TWC - Play by Email (PBeM) Strategy Wargaming Club - Battle on!..</div>
     </body>
 </html>
 <?
+    } else { // new
+?>
+        </div>    
+    <div class="clearfix"></div>
+
+
+    <div class="footer">
+        <p>TWC - Play by Email (PBeM) Strategy Wargaming Club - Battle on!..</p>
+    </div>
+</div>
+
+<!-- JQuery Start -->
+
+    </body>
+</html>
+<?
+    }
 }
 function getToken($length){
      $token = "";
