@@ -379,6 +379,7 @@
 
 
 function htmlHeader($title, $look = 'old') {
+    $GLOBALS['look'] = $look;
     if ($look == 'old') {
 ?>
 <!DOCTYPE html>
@@ -428,8 +429,16 @@ function htmlHeader($title, $look = 'old') {
         <script src="/js/sorttable.js"></script>
 	<script src="/html/js/bootstrap.min.js"></script>
     </head>
-    <body>
 <?
+        if ($look == 'newLogin') {
+?>
+    <body class="login-page">
+<?
+        } else {
+?>
+    <body class="SitePage">
+<?
+        }
     }
 }
 function setLeftBlock($arr) {
@@ -462,11 +471,19 @@ function setLeftBlock($arr) {
         
 <?
 }
-function htmlFooter($look = 'old') {
-    if ($look == 'old') {
+function htmlFooter() {
+    if ($GLOBALS['look'] == 'old') {
 ?>
         <div class="PushUp">&nbsp;</div>
         <div class="Footer">TWC - Play by Email (PBeM) Strategy Wargaming Club - Battle on!..</div>
+    </body>
+</html>
+<?
+    } elseif ($GLOBALS['look'] == 'newLogin') { // new login
+?>
+    <div class="page-footer">
+        <p><img src="/images/copy-right.png" alt=""></p>
+    </div>
     </body>
 </html>
 <?
@@ -558,4 +575,5 @@ $tournamentTypes = array(
     1 => 'Pyramid'
     /* 2 => 'Round Robin' */
 );
+$loggedIn = array_key_exists('userId', $_SESSION) ? $_SESSION['userId'] : '';
 ?>

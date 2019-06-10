@@ -44,7 +44,7 @@ img { width: auto; height: auto; max-width: 100% }
 
 /* ___________________ Header Starts _______________________*/
 
-.login-page { position: relative; width: 100vw; height: 100vh; background: url(../images/login-bg.jpg) no-repeat 0 0; background-size: cover; padding: 22px 0 0 0; margin: 0; text-align: center;  }
+.login-page { position: relative; width: 100vw; height: 100vh; background: url(/images/cavalryCharge.jpg) no-repeat 0 0; background-size: cover; padding: 22px 0 0 0; margin: 0; text-align: center;  }
 .login-page .logo-block { display: inline-block; padding: 0 0 15px 0; margin: 0; }
 .login-page .logo-block a { display: inline-block; padding: 0; margin: 0; }
 .login-page .title-block { padding: 0; margin: 0; }
@@ -59,18 +59,23 @@ img { width: auto; height: auto; max-width: 100% }
 .login-page .form-block .form-title { padding: 0 0 20px 0; margin:  0 }
 .login-page .form-block form { text-align: left; padding: 0 90px; margin: 0; }
 .login-page .form-block .box { padding: 22px 0 0 0; margin: 0; }
-.login-page .form-block .box .form-control { height: 55px; background: rgba(0,0,0,0.5); box-shadow: 2px 3px 9px 2px #00000099;  }
-.login-page .form-block .box .form-control:focus { border-color: #B31D1E; font-family: 'Oswald', sans-serif; color:#B31D1E;  }
+.login-page .form-block .box .form-control { height: 55px; background: rgba(0,0,0,0.5); box-shadow: 2px 3px 9px 2px #00000099; color: white; font-size: 18px; font-family: 'Oswald', sans-serif; }
+.login-page .form-block .box .form-control:focus { border-color: #B31D1E; color:#fee;  }
 
 .login-page .form-block .btns { text-align: center; padding: 31px 0 38px; margin: 0; }
-.login-page .form-block .btns .sbt { text-shadow: 2px 3px 4px #7e0a0a; border: none; outline: none; box-shadow: none; background: url(../images/login-bg.png) no-repeat 0 0; font-size: 34px; color: #FFFFFF; line-height: 36px; font-weight: 400; letter-spacing: 0.02em; padding: 19px 98px 22px; margin: 0; transition:  all 0.3s ease-in-out; }
+.login-page .form-block .btns .sbt { text-shadow: 2px 3px 4px #7e0a0a; border: none; outline: none; box-shadow: none; background: url(/images/login-bg.png) no-repeat 0 0; font-size: 34px; color: #FFFFFF; line-height: 36px; font-weight: 400; letter-spacing: 0.02em; padding: 19px 98px 22px; margin: 0; transition:  all 0.3s ease-in-out; }
 .login-page .form-block .btns .sbt:hover { opacity: 0.5; }
+.login-page .form-block .btns .sbt:disabled { color: #999; }
 .login-page .form-block .form-footer { padding: 0; margin: 0; }
 .login-page .form-block .form-footer a { transition: all 0.3s ease-in-out; display: inline-block; padding: 0; margin: 0; }
 .login-page .form-block .form-footer a:hover { transform: scale(0.9,0.9); }
+.login-page .form-block span.ErrorMsg {color: #d44; text-align: center;  letter-spacing: 3px; }
 
 .login-page .page-footer { padding: 10px 0 0; background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.5); }
 
+.login-page .form-block.ForgotPassword .TopMargin { height: 50px; }
+.login-page .form-block.ForgotPassword h3 { color: white; }
+.login-page .form-block.ForgotPassword .form-text { padding:0px 44px 35px 44px; margin: 0; color: white; letter-spacing: 3px; display: inline-block;}
 
 /*All Inner*/
 

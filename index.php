@@ -14,7 +14,6 @@
  * 
  */
 require "inc.php"; 
-$loggedIn = array_key_exists('userId', $_SESSION) ? $_SESSION['userId'] : '';
 
 $errorMsg = "";
 if ($_POST)
@@ -30,33 +29,50 @@ if ($_POST)
     }
 }
 $user = array();
-if ($loggedIn)
+if (!$loggedIn) {
+    htmlHeader("Login page", 'newLogin');
+} else {
     $user = getUserDetails($loggedIn);
-
-htmlHeader($loggedIn ? "Status for " . $_SESSION['alias'] : "Login page");
+    htmlHeader("Status for " . $_SESSION['alias'], 'new');
+}
 ?>
 
 <? if (!$loggedIn) {?>
-        <div class="Instructions">
-            Register your battles here, and view results and ribbons.
+        <img class="Logo" src="/images/logo.png">
+        <div class="title-block">
+            <h1><img src="/images/the-wargaming-club.png" alt=""></h1>
+            <h2><img src="/images/office-of-reord.png" alt=""></h2>
         </div>
-        <form method="post">
-            <div class="Login">
-                <table>
-                    <tr><th>Email:</th><td><input name="email"></td></tr>
-                    <tr><th>Password:</th><td><input name="password" type="password"></td></tr>
-<? if ($errorMsg) {?>
-                    <tr><td colspan="2" class="ErrorMsg"><?=$errorMsg?></td></tr>
-<? } ?>
-                </table>
-                <div class="ButtonBar">
-                    <input type="submit" value="Login">
-                </div>
-                <div class="ForgotWrapper">
-                    <a href="forgotPassword.php">Click to reset your password</a>
-                </div>
+        <div class="form-block">
+            <div class="form-text">
+                <p><img src="/images/register-battle.png" alt=""></p>
             </div>
-        </form>
+            <div class="form-title">
+                <h3><img src="/images/sign-in.png" alt=""></h3>
+            </div>
+            <form method="post">
+                <div class="box">
+                    <p><img src="/images/email.png" alt=""></p>
+                    <input type="text" class="form-control" name="email">
+                </div>
+                <div class="box">
+                    <p><img src="/images/password.png" alt=""></p>
+                    <input type="password" class="form-control" name="password">
+                </div>
+                <div class="box">
+    <? if ($errorMsg) {?>
+                    <span class="ErrorMsg"><?=$errorMsg?></span>
+    <? } ?>
+                </div>
+                <div class="btns">
+                    <input type="submit" value="login" class="sbt">
+                </div>
+                
+            </form>
+            <div class="form-footer">
+                <a href="forgotPassword.php"><img src="images/password-reset.png" alt=""></a>
+            </div>
+        </div>
 <? } else { /* logged in */ ?>
         <div class="ButtonBar">
             <button onclick="document.location='logout.php';">Log out</button>

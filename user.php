@@ -14,7 +14,6 @@
  * 
  */
 require "inc.php";
-$loggedIn = array_key_exists('userId', $_SESSION) ? $_SESSION['userId'] : '';
 if (!$loggedIn)
 {
     header('Location: /');

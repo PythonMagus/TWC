@@ -14,9 +14,10 @@
  * 
  */
 require('inc.php');
+$loggedIn = '';
 
-htmlHeader('Forgotten password');
-$message = 'Enter your email address and click "Reset". You password will be randomized and emailed to you. Please remember to change it and keep it safe.';
+htmlHeader('Forgotten password', 'newLogin');
+$message = 'Enter your email address and click "Reset". You password will be random- ized and emailed to you. Please remember to change it and keep it safe.';
 $email = '';
 if ($_POST) {
     $email = trim($_POST['email']);
@@ -41,18 +42,31 @@ if ($_POST) {
     }
 }
 ?>
-    <form method="post">
-        <div class="ForgotPassword">
-            <h2>Reset password</h2>
-            <span class="Instructions"> <?= $message ?> </span>
-            <div>
-            <label for="email">Email:</label>
-            <input id="email" name="email" value="<?= $email ?>" onkeyup="document.querySelector('input[type=\'submit\']').disabled = !this.value;">
+        <img class="Logo" src="/images/logo.png">
+        <div class="title-block">
+            <h1><img src="/images/the-wargaming-club.png" alt=""></h1>
+            <h2><img src="/images/office-of-reord.png" alt=""></h2>
+        </div>
+        <div class="form-block ForgotPassword">
+            <div class="form-title">
+                <div class="TopMargin"></div>
+                <h3>Reset Password</h1>
             </div>
-            <div class="ButtonBar">
-                <input type="submit" value="Reset" disabled>
-                <input type="button" value="Close" onclick="document.location='/';">
+            <div class="form-text">
+                <span class="Instructions"><?= $message?></span>
+            </div>
+            <form method="post">
+                <div class="box">
+                    <p><img src="/images/email.png" alt=""></p>
+                    <input type="text" class="form-control" name="email"  onkeyup="document.querySelector('input[type=\'submit\']').disabled = !this.value;">
+                </div>
+                <div class="btns">
+                    <input type="submit" value="Reset" class="sbt" disabled> 
+                    <input type="button" value="Close" class="sbt" onclick="document.location='/';">
+                </div>
+                
+            </form>
+            <div class="form-footer">
             </div>
         </div>
-    </form>
 <?  htmlFooter() ?>
