@@ -293,44 +293,70 @@
         global $session, $results;
         $user = getUserDetails($id);
 ?>
-        <div class="UserDetails">
-            <h2>Details for <?= $user['alias'] ?></h2>
-            <table>
-                <tr><th>Name:</th><td><?= $user['realName'] ?></td></tr>
-                <tr><th>Email:</th><td><a href="mailto:<?= $user['email'] ?>"><?= $user['email'] ?></a></td></tr>
-                <tr><th>Points:</th><td><?= $user['points'] ?> points</td><th>
-                <tr><th>Rank:</th><td class="Rank"><? outputRibbon($user, 'rank') ?><span><?= array_key_exists('rankRibbonName', $user) ? $user['rankRibbonName'] : '' ?></span></td></tr>
-                <tr><th>Since:</th><td><? outputRibbon($user, 'years') ?><span><?= date('d/M/Y', $user['since']) ?></span></td><th>
-                <tr><th>Played:</th><td><? outputRibbon($user, 'play') ?><span><?= $user['battles'] ?> battles</span></td><th>
-                <tr><th>Gained:</th><td><? outputRibbon($user, 'win') ?><span><?= $user['victories'] ?> victories</span></td><th>
-                <tr><th>Tournaments:</th><td class="Tournaments">
-<?
-        foreach($user['tournaments'] as $rec) {
-?>
-                    <div class="Award">
-                        <img src="<?= $rec['url'] ?>">
-                        <span><?= $rec['type'] ?></span>
-                        <a href="/tournament.php?id=<?= $rec['id'] ?>"><?= $rec['name'] ?></a>
+        <div class="tab-content">
+            <div id="s3" class="tab-pane active">
+              <div class="body-box">
+                <div class="man-block">
+                  <div class="img-man">
+                    <img style="display:none;" src="images/after-login-img.png" alt=""> <!-- Add User Avatar here -->
+                  </div>
+                  <div class="text-block">
+                    <h2><?= $user['alias'] ?></h2>
+                    <a href="mailto:<?= $user['email'] ?>"><?= $user['email'] ?></a>
+                  </div>   
+                </div>
+                <div class="mid-block">
+                  <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                      <div class="box">
+                        <div class="top-block">
+                          <div class="left-side">
+                            <div class="mixer-block">
+                              <h3>Points:<span><?= $user['points'] ?></span>points</h3>
+                            </div>
+                            <div class="mixer-block">
+                              <h3>Rank:<span><?= outputRibbon($user, 'rank') ?></span><?= array_key_exists('rankRibbonName', $user) ? $user['rankRibbonName'] : 'Comrade' ?></h3>
+                            </div> 
+                            <div class="mixer-block">
+                              <h3>Since:<span><? outputRibbon($user, 'years') ?></span><?= date('d/M/Y', $user['since']) ?></h3>
+                            </div> 
+                            <div class="mixer-block">
+                              <h3>Gained:<span><? outputRibbon($user, 'win') ?></span><?= $user['victories'] ?> victories</h3>
+                            </div>
+                            <div class="clearfix"></div>                                
+                          </div>
+                          <div id="tournamentSummary" class="right-side">
+                          </div>
+                              <script>
+                                marqueeResults( <?= json_encode($user['tournaments']); ?> );
+                              </script>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="booton-div">
+                          <div id="ribbonSummary" class="ribbons">
+                          </div>
+                          <script>
+                            marqueeRibbons( <?= json_encode($user['otherRibbons']) ?> );
+                          </script>
+                          <div class="last-login">
+                            <h6>Last login: <?= $user['lastLogin'] ? date('d/M/Y h:m a', $user['lastLogin']) : '' ?></h6>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
                     </div>
-<? } ?>
-                </td></tr>
-                <tr><th>Ribbons:</th><td class="Ribbons">
-<?
-        foreach($user['otherRibbons'] as $name => $image) {
-?>
-                    <div class="RibbonWrapper">
-                        <img class="Ribbon" src="/images/<?= $image ?>.png" title="<?= $name ?>"><br>
-                        <span><?= $name ?></span>
-                    </div>
-<? } ?>
-                </td></tr>
-                <tr><th>Last login:</th><td><?= $user['lastLogin'] ? date('d/M/Y h:m a', $user['lastLogin']) : '' ?></td><th>
-            </table>
-        </div>
-        <div class="CurrentBattles">
-            <h2>Current Battles</h2>
-            <table class="sortable">
-                <tr><th>Start</th><th>Name</th></tr>
+                    <div class="col-md-6 col-sm-6">
+                      <div class="box last-box">
+                        <h2>Current Battles</h2>
+                        <div class="block">
+                            <table class="sortable">
+                              <thead class="up-div"><tr>
+                                <th>Start</th>
+                                <th>Name</th>
+                               
+                              </tr>
+                            </thead>  
+                            <tbody class="lower-div">
 <?
         $stmt = $session->db->prepare('SELECT b.id, b.started, b.name, gt.name FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = ? and b.state = 1 ORDER BY b.started');
         $stmt->bind_param('i', $id);
@@ -341,17 +367,32 @@
         {
             if (!$type) $type = '';
 ?>
-            <tr><td class="Date" sorttable_customkey="<?= date('Y-m-d', strtotime($started)) ?>"><?= date('', strtotime($started)); ?></td><td class="Name"><a href="battle.php?id=<?= $battleId ?>"><?= "$type $name" ?></a></td></tr>
+            <tr>
+                <td class="Date" sorttable_customkey="<?= date('Y-m-d', strtotime($started)) ?>"><?= date('d/M/Y', strtotime($started)); ?></td>
+                <td class="Name"><a href="battle.php?id=<?= $battleId ?>"><?= "$type $name" ?></a></td>
+            </tr>
 <?
         }
 ?>
-
-            </table>
-        </div>
-        <div class="CompletedBattles">
-            <h2>Completed Battles</h2>
-            <table class="sortable">
-                <tr><th>Start</th><th>End</th><th>Name</th><th>Result</th><th>Points</th></tr>
+                            </tbody></table>
+                        </div>
+                      </div>  
+                    </div>
+                  </div>
+                </div>
+                <div class="content-block battle-block">
+                  <div class="complete-block">
+                    <h2>Completed Battles</h2>
+                  </div>
+                  <div class="tabile-block">
+                    <table class="sortable">
+                      <thead><tr class="bg">
+                        <th>Start</th>
+                        <th>End</th>
+                        <th class="field">Name</th>
+                        <th>Result</th>
+                        <th>Points</th>
+                      </tr></thead><tbody>
 <?
         $stmt = $session->db->prepare('SELECT b.id, b.started, b.ended, b.name, gt.name, ub.result, ub.points FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = ? and b.state=2 ORDER BY b.ended DESC');
         $stmt->bind_param('i', $id);
@@ -372,208 +413,218 @@
 <?
         }
 ?>
-            </table>
-        </div>
+                    </tbody></table>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
 <?
     }
 
-
-function htmlHeader($title, $look = 'old') {
-    $GLOBALS['look'] = $look;
-    if ($look == 'old') {
+    function htmlHeader($title, $look = 'old') {
+        $GLOBALS['look'] = $look;
+        if ($look == 'old') {
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>TWC OoR - <?= $title ?></title>
-        <link rel="SHORTCUT ICON" href="../images/favicon.ico">
-        <link rel="stylesheet" type="text/css" href="/css/pikaday.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <script src="/js/main.js"></script>
-        <script src="/js/pikaday.js"></script>
-        <script src="/js/sorttable.js"></script>
-    </head>
-    <body onload="">
-        <div class="Banner">
-            <img src="/images/Logo.jpg" width="64">
-            <div class="Title"><?= $GLOBALS['TITLE'] ?></div>
-            <div class="Subtitle">Office of Records</div>
-        </div>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>TWC OoR - <?= $title ?></title>
+            <link rel="SHORTCUT ICON" href="../images/favicon.ico">
+            <link rel="stylesheet" type="text/css" href="/css/pikaday.css">
+            <link rel="stylesheet" type="text/css" href="/css/main.css">
+            <script src="/js/main.js"></script>
+            <script src="/js/pikaday.js"></script>
+            <script src="/js/sorttable.js"></script>
+        </head>
+        <body onload="">
+            <div class="Banner">
+                <img src="/images/Logo.jpg" width="64">
+                <div class="Title"><?= $GLOBALS['TITLE'] ?></div>
+                <div class="Subtitle">Office of Records</div>
+            </div>
 <?
-    } else { // new
+        } else { // new
 ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>The Wargaming Club</title>
-        <!-- Bootstrap Core CSS -->
-        <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+            <meta name="description" content="">
+            <meta name="author" content="">
+            <title>The Wargaming Club</title>
+            <!-- Bootstrap Core CSS -->
+            <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
 
-        <!--Website CSS -->
-        <link href="/css/style.css" type="text/css" rel="stylesheet">
+            <!--Website CSS -->
+            <link href="/css/style.css" type="text/css" rel="stylesheet">
 
-        <!-- FontAwesome CSS -->
-        <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+            <!-- FontAwesome CSS -->
+            <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-        <!-- Custom Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet">
+            <!-- Custom Fonts -->
+            <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
-        <script src="/js/main.js"></script>
-        <script src="/js/pikaday.js"></script>
-        <script src="/js/sorttable.js"></script>
-	<script src="/html/js/bootstrap.min.js"></script>
-    </head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+            <script src="/js/main.js"></script>
+            <script src="/js/pikaday.js"></script>
+            <script src="/js/sorttable.js"></script>
+            <script src="/html/js/bootstrap.min.js"></script>
+        </head>
 <?
-        if ($look == 'newLogin') {
+            if ($look == 'newLogin') {
 ?>
-    <body class="login-page">
+        <body class="login-page">
 <?
-        } else {
+            } else {
 ?>
-    <body class="SitePage">
+        <body>
 <?
+            }
         }
     }
-}
-function setLeftBlock($arr) {
+
+    function setLeftBlock($arr) {
 ?>
-    <div class="all-inner">
-        <div class="lt-block">
-            <ul>
+        <div class="all-inner">
+            <div class="lt-block">
+                <ul>
 <?
-    foreach($arr as $rec) {
-        echo "<li><a title=\"{$rec['alt']}\"";
-        if (array_key_exists('link', $rec)) echo " href=\"{$rec['link']}\"";
-        if (array_key_exists('js', $rec)) echo " onclick=\"{$rec['js']};return false;\"";
-        echo "><span><img src=\"/html/images/{$rec['img']}\" alt=\"{$rec['alt']}\"></span></a></li>";
-    }
+        foreach($arr as $tab) {
+            $isActive = array_key_exists('link', $tab) && strpos($_SERVER['PHP_SELF'], $tab['link']) ?  ' class="active">' : '';
+            echo "<li $isActive><a title=\"{$tab['alt']}\"";
+            if (array_key_exists('link', $tab)) echo " href=\"{$tab['link']}\"";
+            if (array_key_exists('js', $tab)) echo " onclick=\"{$tab['js']};return false;\"";
+            echo "><span><img src=\"/html/images/{$tab['img']}\" alt=\"{$tab['alt']}\"></span></a></li>";
+        }
 ?>
-            </ul>
-        </div>
-        <div class="rt-block">
-            <div class="header">
-                <div class="lt-box">
-                    <a href="#"><span><img src="/html/images/inner-logo-title.png" alt=""></span></a>
-                </div>
-                <div class="rt-box">
-                    <a href="/editUser.php">Change Password</a>
-                    <a href="/logout.php">Log out </a>
-                </div>
+                </ul>
             </div>
-            <div class="all-body">
-                <div class="tab-content">
-        
-<?
-}
-function htmlFooter() {
-    if ($GLOBALS['look'] == 'old') {
-?>
-        <div class="PushUp">&nbsp;</div>
-        <div class="Footer">TWC - Play by Email (PBeM) Strategy Wargaming Club - Battle on!..</div>
-    </body>
-</html>
-<?
-    } elseif ($GLOBALS['look'] == 'newLogin') { // new login
-?>
-    <div class="page-footer">
-        <p><img src="/images/copy-right.png" alt=""></p>
-    </div>
-    </body>
-</html>
-<?
-    } else { // new
-?>
-        </div>    
-    <div class="clearfix"></div>
-
-
-    <div class="footer">
-        <p>TWC - Play by Email (PBeM) Strategy Wargaming Club - Battle on!..</p>
-    </div>
-</div>
-
-<!-- JQuery Start -->
-
-    </body>
-</html>
+            <div class="rt-block">
+                <div class="header">
+                    <div class="lt-box">
+                        <a href="index.php"><span><img src="/images/inner-logo-title.png" alt=""></span></a>
+                    </div>
+                    <div class="rt-box">
+                        <a href="/editUser.php">Change Password</a>
+                        <a href="/logout.php">Log out </a>
+                    </div>
+                </div>
+                <div class="all-body">
+                    <div class="tab-content">
 <?
     }
-}
-function getToken($length){
-     $token = "";
-     $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-     $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
-     $codeAlphabet.= "0123456789";
-     $max = strlen($codeAlphabet); // edited
+    function htmlFooter() {
+        if ($GLOBALS['look'] == 'old') {
+?>
+            <div class="PushUp">&nbsp;</div>
+            <div class="Footer">TWC - Play by Email (PBeM) Strategy Wargaming Club - Battle on!..</div>
+        </body>
+    </html>
+<?
+        } elseif ($GLOBALS['look'] == 'newLogin') { // new login
+?>
+        <div class="page-footer">
+            <p><img src="/images/copy-right.png" alt=""></p>
+        </div>
+        </body>
+    </html>
+<?
+        } else { // new
+?>
+            </div>    
+        <div class="clearfix"></div>
 
-    for ($i=0; $i < $length; $i++) {
-        $token .= $codeAlphabet[rand(0, $max-1)];
+
+        <div class="footer">
+            <p>TWC - Play by Email (PBeM) Strategy Wargaming Club - Battle on!..</p>
+        </div>
+    </div>
+
+        </body>
+    </html>
+    <?
+        }
+    }
+    function getToken($length){
+         $token = "";
+         $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+         $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+         $codeAlphabet.= "0123456789";
+         $max = strlen($codeAlphabet); // edited
+
+        for ($i=0; $i < $length; $i++) {
+            $token .= $codeAlphabet[rand(0, $max-1)];
+        }
+
+        return $token;
+    }
+    function getAllUsers() {
+        global $session;
+        $users = array();
+        $stmt = $session->db->prepare('SELECT id, alias, email FROM users ORDER BY alias');
+        if (!$stmt->execute()) dLog("fail - SELECT users, alias, email FROM users  ORDER BY alias");
+        $stmt->store_result();
+        $stmt->bind_result($userId, $alias, $email);
+        while ($stmt->fetch())
+            array_push($users, array(
+                'id' => $userId,
+                'alias' => $alias,
+                'email' => $email,
+            ));
+        return $users;
+    }
+    function sendMail($recipients, $subject, $message) {
+        global $adminEmail;
+        if ($GLOBALS['TESTING'])
+            foreach($recipients as $index => $email)
+                if (array_search($email, explode('.','nlancier@gmail.com,pythonmagus@redwaratah.com,lordlau1@gmail.com,nedfn1@comcast.net')) !== FALSE)
+                    $recipients[$index] = str_replace('@', '_', $email) . "@redwaratah.com";
+        mail(join(",", $recipients), $subject, $message, "From: Club Admin <$adminEmail>");
     }
 
-    return $token;
-}
-function getAllUsers() {
-    global $session;
-    $users = array();
-    $stmt = $session->db->prepare('SELECT id, alias, email FROM users ORDER BY alias');
-    if (!$stmt->execute()) dLog("fail - SELECT users, alias, email FROM users  ORDER BY alias");
-    $stmt->store_result();
-    $stmt->bind_result($userId, $alias, $email);
-    while ($stmt->fetch())
-        array_push($users, array(
-            'id' => $userId,
-            'alias' => $alias,
-            'email' => $email,
-        ));
-    return $users;
-}
-function sendMail($recipients, $subject, $message) {
-    global $adminEmail;
-    if ($GLOBALS['TESTING'])
-        foreach($recipients as $index => $email)
-            if (array_search($email, explode('.','nlancier@gmail.com,pythonmagus@redwaratah.com,lordlau1@gmail.com,nedfn1@comcast.net')) !== FALSE)
-                $recipients[$index] = str_replace('@', '_', $email) . "@redwaratah.com";
-    mail(join(",", $recipients), $subject, $message, "From: Club Admin <$adminEmail>");
-}
+    $navigationTabs = array(
+        array('alt' => 'My Challenges', 'img' => 'tab-1.png', 'link' => 'challenges.php'),
+        array('alt' => 'All Battles', 'img' => 'tab-2.png', 'link' => 'battles.php'),
+        array('alt' => 'All Generals', 'img' => 'tab-3.png', 'link' => 'users.php'),
+        array('alt' => 'All Tournaments', 'img' => 'tab-4.png', 'link' => 'tournaments.php'),
+        array('alt' => 'Register battle', 'img' => 'tab-5.png', 'link' => 'registerBattle.php')
+    );// Nice table: 90 x 120 + 70 x 77 x 65
 
-$battleStates = array(
-    0 => 'Not started',
-    1 => 'Started',
-    2 => 'Completed',
-    3 => 'Cancelled',
-    4 => 'Suspended'
-);
+    $battleStates = array(
+        0 => 'Not started',
+        1 => 'Started',
+        2 => 'Completed',
+        3 => 'Cancelled',
+        4 => 'Suspended'
+    );
 
-$results = array(
-    0 => '',
-    1 => 'First',
-    2 => 'Second',
-    3 => 'Third',
-    4 => 'Fourth',
-    5 => 'Fifth',
-    6 => 'Sixth',
-    7 => 'Seventh',
-    8 => 'Eighth',
-    9 => 'Ninth',
-    90 => 'Participated',
-    99 => 'Lost'
-);
+    $results = array(
+        0 => '',
+        1 => 'First',
+        2 => 'Second',
+        3 => 'Third',
+        4 => 'Fourth',
+        5 => 'Fifth',
+        6 => 'Sixth',
+        7 => 'Seventh',
+        8 => 'Eighth',
+        9 => 'Ninth',
+        90 => 'Participated',
+        99 => 'Lost'
+    );
 
-$tournamentStates = array(
-    0 => 'Recruiting',
-    1 => 'Underway',
-    2 => 'Complete'
-);
-$tournamentTypes = array(
-    0 => 'Elimination',
-    1 => 'Pyramid'
-    /* 2 => 'Round Robin' */
-);
-$loggedIn = array_key_exists('userId', $_SESSION) ? $_SESSION['userId'] : '';
+    $tournamentStates = array(
+        0 => 'Recruiting',
+        1 => 'Underway',
+        2 => 'Complete'
+    );
+    $tournamentTypes = array(
+        0 => 'Elimination',
+        1 => 'Pyramid'
+        /* 2 => 'Round Robin' */
+    );
+    $loggedIn = array_key_exists('userId', $_SESSION) ? $_SESSION['userId'] : '';
 ?>

@@ -233,17 +233,20 @@ img { width: auto; height: auto; max-width: 100% }
 .all-inner .rt-block .mid-block .box.last-box h2{ font-family: 'Oswald', sans-serif; font-size:21px; line-height:23px;  font-weight:600; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow:10px 7px 11px #00000052;letter-spacing:0.96px; margin:0; padding:30px 0 20px 0;  }
 .all-inner .rt-block .mid-block .box.last-box .block{ background:rgba(0,0,0,.7); margin:0; padding:0; border:1px solid rgba(255,255,255,.3); border-radius:5px; border-top:none; min-height:323px;  }
 
-.all-inner .rt-block .mid-block .box.last-box .block .up-div{ background:#000; margin:0; padding:8px 0 5px 35px; border-bottom:1px solid rgba(255,255,255,.3); }
-.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
+.all-inner .rt-block .mid-block .box.last-box .block {padding:8px 0 5px 35px;}
+.all-inner .rt-block .mid-block .box.last-box .block table { width: 100% }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div{ background:#000; margin:0; padding-bottom: 5px; border-bottom:1px solid rgba(255,255,255,.3); }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
 
-.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr th{ min-width: 115px; padding-bottom: 10px; }
-.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr th .arrows{ padding-left: 15px; }
-.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr th .arrows a{ display: inline-block; padding: 0 3px; }
-.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr th .arrows a:hover{ opacity:.5;  }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div tr th{ min-width: 115px; padding-bottom: 10px; }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div tr th .arrows{ padding-left: 15px; }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div tr th .arrows a{ display: inline-block; padding: 0 3px; }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div tr th .arrows a:hover{ opacity:.5;  }
 
 .all-inner .rt-block .mid-block .box.last-box .block .lower-div{ margin:0; padding:15px 0 0 35px; }
-.all-inner .rt-block .mid-block .box.last-box .block .lower-div table tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
-.all-inner .rt-block .mid-block .box.last-box .block .lower-div table tr td{ min-width: 115px; padding-bottom: 10px; }
+.all-inner .rt-block .mid-block .box.last-box .block .lower-div tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
+.all-inner .rt-block .mid-block .box.last-box .block .lower-div tr td{ min-width: 115px; padding-bottom: 10px; }
+.all-inner .rt-block .mid-block .box.last-box .block .lower-div tr td a, .all-inner .rt-block .content-block.battle-block .tabile-block tr td a{ color: inherit; }
 
 .all-inner .rt-block .content-block.battle-block{  background:url(../images/battle-block.png) no-repeat center !important; padding:10px 0 25px !important;  }
 .all-inner .rt-block .all-body .body-box .content-block.battle-block table { width: 100%; padding:0 30px;  }
@@ -254,6 +257,31 @@ img { width: auto; height: auto; max-width: 100% }
 .all-inner .rt-block .content-block.battle-block .complete-block h2{ font-family: 'Oswald', sans-serif; font-size:21px; line-height: 23px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
 
 .all-inner .rt-block .body-box.all-battle{ margin:0; padding:0 0 0; }
+
+#ribbonSummary span
+{
+    margin-right: 2px;
+}
+#sorttable_sortrevind
+{
+    display: inline-block;
+    width: 11px;
+    height: 7px;
+    background: url(/images/sort-down.png) no-repeat center;
+    text-indent: -9999px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+#sorttable_sortfwdind
+{
+    display: inline-block;
+    width: 11px;
+    height: 7px;
+    background: url(/images/sort-up.png) no-repeat center;
+    text-indent: -9999px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
 
 /*=========== After-Login End ==========*/
 

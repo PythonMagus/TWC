@@ -28,16 +28,10 @@ if ($_POST)
         exit;
     }
 }
-$user = array();
+$user = null;
 if (!$loggedIn) {
     htmlHeader("Login page", 'newLogin');
-} else {
-    $user = getUserDetails($loggedIn);
-    htmlHeader("Status for " . $_SESSION['alias'], 'new');
-}
 ?>
-
-<? if (!$loggedIn) {?>
         <img class="Logo" src="/images/logo.png">
         <div class="title-block">
             <h1><img src="/images/the-wargaming-club.png" alt=""></h1>
@@ -73,17 +67,11 @@ if (!$loggedIn) {
                 <a href="forgotPassword.php"><img src="images/password-reset.png" alt=""></a>
             </div>
         </div>
-<? } else { /* logged in */ ?>
-        <div class="ButtonBar">
-            <button onclick="document.location='logout.php';">Log out</button>
-            <button onclick="document.location='editUser.php?id=<?= $_SESSION['userId'] ?>';">Change password</button>
-            <button onclick="document.location='challenges.php';">My Challenges</button>
-            <button onclick="document.location='battles.php';">All battles</button>
-            <button onclick="document.location='users.php';">All generals</button>
-            <button onclick="document.location='tournaments.php';">All tournaments</button>
-            <button onclick="document.location='registerBattle.php';">Register battle</button>
-        </div>
-<?
+<? 
+} else { /* logged in */
+    $user = getUserDetails($loggedIn);
+    htmlHeader("Status for " . $_SESSION['alias'], 'new');
+    setLeftBlock($navigationTabs);
     outputUserDetails($loggedIn);
 ?>
 

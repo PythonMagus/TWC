@@ -780,3 +780,64 @@ function loadDateEditor(node)
     }});
     if (dt) pd.setDate(dt);
 }
+function marqueeResults(results) {
+    var target = document.getElementById('tournamentSummary');
+    if (!target) return setTimeout(marqueeResults, 5);
+    var current = -1;
+    var pause = false;
+    if (!results.length) return;
+    function renderNext()
+    {
+        if (pause) return;
+        if (++current >= results.length) current = 0;
+        var result = results[current];
+        target.innerHTML = [
+            '<div class="up-two">',
+              '<h4>Tournaments:</h4>',
+                '<img src="' + result.url + '" style="max-width: 231px; max-height: 110px;">',
+            '</div>',
+            '<div class="mid-text">',
+              '<h5>Position: ' + result.type + '</h5>',
+            '</div>',
+            '<div class="bottom-text">',
+              '<h5>Game</h5>',
+              '<h6 onclick="document.location=\\"/tournament.php?id=' + result.id + '\\"">' + result.name + '</h6>',
+            '</div>'].join('');
+        target.title = 'Result ' + (current + 1) + ' of ' + results.length + ' tournaments.';
+    }
+    target.onclick = renderNext;
+    if (results.length > 1) setInterval(renderNext, 4356);
+    renderNext();
+    target.onmouseover = function() {pause = true};
+    target.onmouseout = function() {pause = false};
+    renderNext();
+}
+function marqueeRibbons(ribbonLU) {
+    var target = document.getElementById('ribbonSummary');
+    if (!target) return setTimeout(marqueeRibbons, 5);
+    var current = -1;
+    var pause = false;
+    var ribbons = [];
+    for (var name in ribbonLU)
+        ribbons.push({name: name, url: ribbonLU[name]});
+    if (!ribbons.length) ribbons.push({name: 'Welcome', url: 'ribbon-icon'});
+    function renderNext() 
+    {
+        if (pause) return;
+        if (++current >= ribbons.length) current = 0;
+        var ribbon = ribbons[current];
+        target.innerHTML = [
+            ' <h4>Ribbons:<span>',
+                '<img class="Ribbon" src="/images/' + ribbon.url + '.png">',
+            '</span>',
+            ribbon.name,
+            '</h4>'].join('');
+        target.title = ribbon.name + ' is ribbon ' + (current + 1) + ' of ' + ribbons.length;
+    }
+    target.onclick = renderNext;
+    if (ribbons.length > 1) setInterval(renderNext, 3876);
+    renderNext();
+    target.onmouseover = function() {pause = true};
+    target.onmouseout = function() {pause = false};
+    renderNext();
+}
