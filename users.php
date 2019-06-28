@@ -25,22 +25,36 @@ $stmt = $session->db->prepare('SELECT id, alias FROM users ORDER BY alias');
 if (!$stmt->execute()) dLog("fail - SELECT id, alias FROM users ORDER BY alias");
 $stmt->store_result();
 $stmt->bind_result($id, $alias);
-htmlHeader("All Generals");
+htmlHeader("All Generals", 'new');
+setLeftBlock($navigationTabs);
 ?>
-        <div class="ButtonBar">
-            <button onclick="document.location='/';">Home</button>
-            <button onclick="document.location='battles.php';">All Battles</button>
-<? if ($_SESSION['admin']) { ?>
-            <button onclick="document.location='editUser.php';">Create</button>
-<? } ?>
+    <div id="s3" class="tab-pane active">
+      <div class="body-box all-battle">
+        <div class="title">
+            <h2><span><img src="images/all-general-logo.png" alt=""></span></h2>
+            <div class="button-block">
+                <a href="/" id="home-btn">Home</a>
+                <a href="/battles.php" id="all-btl-btn">All Battles</a>
+                <a href="/editUser.php" id="create-btn">Create</a>
+            </div>
         </div>
-        <script>
-            setUserFilters();
-        </script>
-    <h2>All Generals</h2>
-    <p>A list of generals containing <input class="TextFilter" placeholder="any"> text.</p>
-    <table class="Users sortable" >
-        <tr><th>Joined</th><th>Alias</th><th>Email</th><th class="sorttable_numeric">Rank</th><th class="sorttable_numeric">Points</th><th class="sorttable_numeric">Games</th><th class="sorttable_numeric">Wins</th><th>Ribbons</th></tr>
+        <div class="sort-block all-short">
+            <h3>
+                <span class="White">A list of generals containing </span>
+                <input class="TextFilter" placeholder="any">
+                <span class="White">text</span>
+            </h3>
+            <script>
+                setUserFilters();
+            </script>
+        </div>
+        <div class="content-block all-content">
+          <table class="sortable">
+            <thead><tr>
+              <th>Joined</th> <th>Alias</th> <th>Email</th> <th class="sorttable_numeric">Rank</th> <th class="sorttable_numeric">Points</th> 
+              <th class="sorttable_numeric">Games</th> <th class="sorttable_numeric">Wins</th> <th>Ribbons</th>
+            </tr> </thead>
+            <tbody>
 <?  
 while ($stmt->fetch()) { 
     $user = getUserDetails($id);
@@ -86,5 +100,9 @@ while ($stmt->fetch()) {
             </td>
         </tr>
 <? } ?>
+                      </tbody></table>
+                    </div>
+                  </div>
+                </div>
     </table>
 <?  htmlFooter() ?>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>The Wargaming Club</title>
+<!-- Bootstrap Core CSS -->
+<link type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
+
+<!--Website CSS -->
+<link href="css/style.css" type="text/css" rel="stylesheet">
+
+<!-- FontAwesome CSS -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<!-- Custom Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="all-inner">
+    <div class="lt-block">
+        <ul>
+            <li><a data-toggle="tab" href="#s1"><span><img src="images/tab-1.png" alt=""></span></a></li>
+            <li><a data-toggle="tab" href="#s2"><span><img src="images/tab-2.png" alt=""></span></a></li>
+            <li><a data-toggle="tab" href="#s3"><span><img src="images/tab-3.png" alt=""></span></a></li>
+            <li class="active"><a data-toggle="tab" href="#tab-tournament"><span><img src="images/tab-4.png" alt=""></span></a></li>
+            <li><a data-toggle="tab" href="#s5"><span><img src="images/tab-5.png" alt=""></span></a></li>
+        </ul>
+    </div>
+    <div class="rt-block">
+        <div class="header">
+            <div class="lt-box">
+                <a href="#"><span><img src="images/inner-logo-title.png" alt=""></span></a>
+            </div>
+            <div class="rt-box">
+                <a href="#">Change Password</a>
+                <a href="#">Log out </a>
+            </div>
+        </div>
+        <div class="all-body">
+            <div class="tab-content">
+                <div id="tab-tournament" class="tab-pane active">
+                  <div class="body-box">
+                    <div class="title text-center block">
+                        <h2><span><img src="images/tournament-details.png" alt=""></span></h2>
+                    </div>
+                    <div class="content-block">
+                      <div class="tournament-sort">
+                        <div class="sort">
+                          <h3><span><img src="images/type-text.png" alt=""></span></h3>
+                            <div class="dropdown">
+                              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="bttns">Elimination
+                                <span><img src="images/border-caret.png" alt=""></span></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#">HTML</a></li>
+                                  <li><a href="#">CSS</a></li>
+                                  <li><a href="#">JavaScript</a></li>
+                                </ul>
+                              </div>
+                        </div>
+                        <div class="sort">
+                          <h3><span><img src="images/game-type-text.png" alt=""></span></h3>
+                          <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="bttns">Demo Tourney 1
+                              <span><img src="images/border-caret.png" alt=""></span></span></button>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">HTML</a></li>
+                                <li><a href="#">CSS</a></li>
+                                <li><a href="#">JavaScript</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                        <div class="sort">
+                          <h3><span><img src="images/name-and-number-text.png" alt=""></span></h3>
+                              <input type="text" class="form-control" placeholder="Demo Tourney 1">
+                        </div>
+                        <div class="sort">
+                          <h3><span><img src="images/started-text.png" alt=""></span></h3>
+                          <input type="date" class="form-control">
+                        </div>
+                        <div class="sort">
+                          <h3><span><img src="images/ended-text.png" alt=""></span></h3>
+                           <input type="date" class="form-control">
+                        </div>
+                        <div class="sort">
+                          <h3><span><img src="images/state-text.png" alt=""></span></h3>
+                            <div class="dropdown">
+                              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="bttns">Complete
+                                <span><img src="images/border-caret.png" alt=""></span></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#">HTML</a></li>
+                                  <li><a href="#">CSS</a></li>
+                                  <li><a href="#">JavaScript</a></li>
+                                </ul>
+                              </div>
+                        </div>
+                      </div>
+                      <div class="draw-awards-block">
+                        <!-- <div class="draw-block">
+                          <h3><span><img src="images/draw-text.png" alt=""></span></h3>
+                          <div class="all-boxes">
+                            <div class="box">
+                              <h4>Quarter-Finals</h4>
+                              <ul>
+                                <li class="blue-but">Admin2</li>
+                                <li class="grey-but">Player5</li>
+                                <li class="grey-but">Player3</li>
+                                <li class="blue-but">Player4</li>
+                                <li class="grey-but">Player1</li>
+                                <li class="blue-but">Player2</li>
+                                <li class="blue-but">Admin1</li>
+                                <li class="grey-but">Player5</li>
+                              </ul>
+                            </div>
+                            <div class="box">
+                              <h4>Semi-Finals</h4>
+                              <ul>
+                                <li class="grey-but">Admin2</li>
+                                <li class="blue-but">Player4</li>
+                                <li class="grey-but">Player2</li>
+                                <li class="blue-but">Admin1</li>
+                              </ul>
+                            </div>
+                            <div class="box">
+                              <h4>Finals</h4>
+                              <ul>
+                                <li class="blue-but"><span>Player4</span></li>
+                                <li class="grey-but"><span>Admin1</span></li>
+                              </ul>
+                            </div>
+                            <div class="box">
+                              <h4>Victor</h4>
+                              <ul>
+                                <li class="blue-but">Player4</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div> -->
+                        <div class="pyrimid-block">
+                          <h3><span><img src="images/pyrimid-text.png" alt=""></span></h3>
+                          <div class="pyrimid-img-block">
+                            <ul>
+                              <li><span>Player1</span></li>
+                              <li><span>Player1</span> <span>Player6</span></li>
+                              <li><span>Player1</span> <span>player4</span></li>
+                              <li><span>player5</span> <span>player6</span> <span>player2</span></li>
+                              <li><span>player3</span> <span>player3</span> <span>Admin2</span></li>
+                              <li><span>player4</span> <span>Admin2</span> <span>Player3</span> <span>Player1</span></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="awards-block">
+                          <h3><span><img src="images/awards-text.png" alt=""></span></h3>
+                          <div class="all-awards">
+                            <div class="box">
+                              <img src="images/awards-icon-1.png" alt="">
+                              <p>Player3</p>
+                            </div>
+                            <div class="box">
+                              <img src="images/awards-icon-2.png" alt="">
+                              <p>Admin2</p>
+                            </div>
+                            <div class="box">
+                              <img src="images/awards-icon-3.png" alt="">
+                              <p>Player6</p>
+                            </div>
+                            <div class="box">
+                              <img src="images/awards-icon-4.png" alt="">
+                              <p>Participation</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tournament-buttons">
+                      <a href="#">Save</a>
+                      <a href="#">Cancel</a>
+                    </div>
+                  </div>
+                </div>
+                <div id="s2" class="tab-pane">
+                  <h3>Menu 1</h3>
+                  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <div id="s3" class="tab-pane">
+                  <h3>Menu 2</h3>.
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+                <div id="s4" class="tab-pane">
+                  <h3>Menu 3</h3>
+                  <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                </div>
+              </div>
+            </div>
+        </div>    
+    <div class="clearfix"></div>
+
+
+    <div class="footer">
+        <p>TWC - Play by Email (PBeM) Strategy Wargaming Club - Battle on!..</p>
+    </div>
+</div>
+
+<!-- JQuery Start -->
+	<script src="js/bootstrap.min.js"></script>
+
+    </body>
+</html>

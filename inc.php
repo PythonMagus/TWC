@@ -353,7 +353,6 @@
                               <thead class="up-div"><tr>
                                 <th>Start</th>
                                 <th>Name</th>
-                               
                               </tr>
                             </thead>  
                             <tbody class="lower-div">
@@ -590,8 +589,9 @@
         array('alt' => 'All Battles', 'img' => 'tab-2.png', 'link' => 'battles.php'),
         array('alt' => 'All Generals', 'img' => 'tab-3.png', 'link' => 'users.php'),
         array('alt' => 'All Tournaments', 'img' => 'tab-4.png', 'link' => 'tournaments.php'),
-        array('alt' => 'Register battle', 'img' => 'tab-5.png', 'link' => 'registerBattle.php')
     );// Nice table: 90 x 120 + 70 x 77 x 65
+    if ($_SESSION['admin']) array_push($navigationTabs, 
+        array('alt' => 'Register Battle', 'img' => 'tab-5.png', 'link' => 'registerBattle.php'));
 
     $battleStates = array(
         0 => 'Not started',

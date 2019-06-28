@@ -34,14 +34,6 @@ $look = 'new';
 htmlHeader("All Battles", $look);
 $lastId = 0;
 $tournaments = array();
-$navigationTabs = array(
-    array('alt' => 'My Challenges', 'img' => 'tab-1.png', 'link' => '/challenges.php'),
-    array('alt' => 'All Battles', 'img' => 'tab-2.png', 'link' => '/battles.php'),
-    array('alt' => 'All Generals', 'img' => 'tab-3.png', 'link' => '/users.php'),
-    array('alt' => 'All Tournaments', 'img' => 'tab-4.png', 'link' => '/tournaments.php')
-);
-if ($_SESSION['admin']) array_push($navigationTabs, 
-    array('alt' => 'Register Battle', 'img' => 'tab-5.png', 'link' => '/battle.php'));
 setLeftBlock($navigationTabs);
 ?>
         <script>

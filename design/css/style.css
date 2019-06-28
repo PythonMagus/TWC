@@ -44,7 +44,7 @@ img { width: auto; height: auto; max-width: 100% }
 
 /* ___________________ Header Starts _______________________*/
 
-.login-page { position: relative; width: 100vw; height: 100vh; background: url(/images/cavalryCharge.jpg) no-repeat 0 0; background-size: cover; padding: 22px 0 0 0; margin: 0; text-align: center;  }
+.login-page { position: relative; width: 100vw; height: 100vh; background: url(../images/login-bg.jpg) no-repeat 0 0; background-size: cover; padding: 22px 0 0 0; margin: 0; text-align: center;  }
 .login-page .logo-block { display: inline-block; padding: 0 0 15px 0; margin: 0; }
 .login-page .logo-block a { display: inline-block; padding: 0; margin: 0; }
 .login-page .title-block { padding: 0; margin: 0; }
@@ -59,23 +59,18 @@ img { width: auto; height: auto; max-width: 100% }
 .login-page .form-block .form-title { padding: 0 0 20px 0; margin:  0 }
 .login-page .form-block form { text-align: left; padding: 0 90px; margin: 0; }
 .login-page .form-block .box { padding: 22px 0 0 0; margin: 0; }
-.login-page .form-block .box .form-control { height: 55px; background: rgba(0,0,0,0.5); box-shadow: 2px 3px 9px 2px #00000099; color: white; font-size: 18px; font-family: 'Oswald', sans-serif; }
-.login-page .form-block .box .form-control:focus { border-color: #B31D1E; color:#fee;  }
+.login-page .form-block .box .form-control { height: 55px; background: rgba(0,0,0,0.5); box-shadow: 2px 3px 9px 2px #00000099;  }
+.login-page .form-block .box .form-control:focus { border-color: #B31D1E; font-family: 'Oswald', sans-serif; color:#B31D1E;  }
 
 .login-page .form-block .btns { text-align: center; padding: 31px 0 38px; margin: 0; }
-.login-page .form-block .btns .sbt { text-shadow: 2px 3px 4px #7e0a0a; border: none; outline: none; box-shadow: none; background: url(/images/login-bg.png) no-repeat 0 0; font-size: 34px; color: #FFFFFF; line-height: 36px; font-weight: 400; letter-spacing: 0.02em; padding: 19px 98px 22px; margin: 0; transition:  all 0.3s ease-in-out; }
+.login-page .form-block .btns .sbt { text-shadow: 2px 3px 4px #7e0a0a; border: none; outline: none; box-shadow: none; background: url(../images/login-bg.png) no-repeat 0 0; font-size: 34px; color: #FFFFFF; line-height: 36px; font-weight: 400; letter-spacing: 0.02em; padding: 19px 98px 22px; margin: 0; transition:  all 0.3s ease-in-out; }
 .login-page .form-block .btns .sbt:hover { opacity: 0.5; }
-.login-page .form-block .btns .sbt:disabled { color: #999; }
 .login-page .form-block .form-footer { padding: 0; margin: 0; }
 .login-page .form-block .form-footer a { transition: all 0.3s ease-in-out; display: inline-block; padding: 0; margin: 0; }
 .login-page .form-block .form-footer a:hover { transform: scale(0.9,0.9); }
-.login-page .form-block span.ErrorMsg {color: #d44; text-align: center;  letter-spacing: 3px; }
 
 .login-page .page-footer { padding: 10px 0 0; background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.5); }
 
-.login-page .form-block.ForgotPassword .TopMargin { height: 50px; }
-.login-page .form-block.ForgotPassword h3 { color: white; }
-.login-page .form-block.ForgotPassword .form-text { padding:0px 44px 35px 44px; margin: 0; color: white; letter-spacing: 3px; display: inline-block;}
 
 /*All Inner*/
 
@@ -84,7 +79,7 @@ img { width: auto; height: auto; max-width: 100% }
 .all-inner .lt-block { width: 240px; background: url(../images/inner-lt-block-bg.png) no-repeat 0 0; background-size: 100% 100%; text-align: center; padding: 91px 20px 60px 20px;  }
 .all-inner .lt-block ul li{ padding-bottom: 10px; }
 .all-inner .lt-block a { border:1px solid transparent; display: inline-block; border-radius: 3px; width: auto; max-width: 150px;  overflow: hidden; padding: 0; margin: 0;  }
-.all-inner .lt-block .active a { border: 1px solid #ffffff90; box-shadow: 0 0 17px 5px #877070a1; opacity: 0.9; }
+.all-inner .lt-block .active a { border: 1px solid #ffffff36; box-shadow:0 0 17px 5px #636161a1; opacity: 0.9; }
 .all-inner .lt-block a:hover { border: 1px solid #ffffff36; box-shadow:0 0 17px 5px #636161a1; opacity: 0.9; cursor: pointer; }
 .all-inner .lt-block a span { display: inline-block; }
 .all-inner .lt-block a img { width: 100%; height: auto; padding: 0; margin: 0; }
@@ -126,14 +121,11 @@ img { width: auto; height: auto; max-width: 100% }
 .all-inner .rt-block .all-body .body-box .content-block { background:url(../images/table-bg.jpg) no-repeat 0 0; background-size: cover; padding: 32px 35px; margin: 0; }
 .all-inner .rt-block .all-body .body-box .content-block table { width: 100%; }
 .all-inner .rt-block .all-body .body-box .content-block table tr { font-family: 'Oswald', sans-serif; font-size: 18px;  line-height: 20px; font-weight: 400; background: linear-gradient(#eee,  #b3b1b1); color:transparent; -webkit-background-clip: text; background-clip: text;  text-shadow: 3px 2px 11px #00000052; padding: 5px 0 }
-.all-inner .rt-block .all-body .body-box .content-block table tr a {color: white; text-decoration: none; }
-.all-inner .rt-block .all-body .body-box .content-block table tr a:hover {color: #ffd; }
 .all-inner .rt-block .all-body .body-box .content-block table tr th { min-width: 115px; padding-bottom: 10px; }
 .all-inner .rt-block .all-body .body-box .content-block table tr th .arrows { padding-left: 15px;}
 .all-inner .rt-block .all-body .body-box .content-block table tr th .arrows a { display: inline-block; padding: 0 3px; }
 .all-inner .rt-block .all-body .body-box .content-block table tr th .arrows a:hover { opacity: 0.5; }
 .all-inner .rt-block .all-body .body-box .content-block table tr td{ padding: 5px 0;   vertical-align: top; }
-.all-inner .rt-block .all-body .body-box .content-block table tr td.Points {text-align: right; padding-right: 32px; }
 .all-inner .rt-block .all-body .body-box .content-block table.all-battles tr td:nth-child(3) { padding-right: 15px; }
 
 .all-inner .footer { text-align: center; position: absolute; width: 100%; bottom: 0; left: 0;  padding: 10px 0; background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.5);  }
@@ -236,20 +228,17 @@ img { width: auto; height: auto; max-width: 100% }
 .all-inner .rt-block .mid-block .box.last-box h2{ font-family: 'Oswald', sans-serif; font-size:21px; line-height:23px;  font-weight:600; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow:10px 7px 11px #00000052;letter-spacing:0.96px; margin:0; padding:30px 0 20px 0;  }
 .all-inner .rt-block .mid-block .box.last-box .block{ background:rgba(0,0,0,.7); margin:0; padding:0; border:1px solid rgba(255,255,255,.3); border-radius:5px; border-top:none; min-height:323px;  }
 
-.all-inner .rt-block .mid-block .box.last-box .block {padding:8px 0 5px 35px;}
-.all-inner .rt-block .mid-block .box.last-box .block table { width: 100% }
-.all-inner .rt-block .mid-block .box.last-box .block .up-div{ background:#000; margin:0; padding-bottom: 5px; border-bottom:1px solid rgba(255,255,255,.3); }
-.all-inner .rt-block .mid-block .box.last-box .block .up-div tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div{ background:#000; margin:0; padding:8px 0 5px 35px; border-bottom:1px solid rgba(255,255,255,.3); }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
 
-.all-inner .rt-block .mid-block .box.last-box .block .up-div tr th{ min-width: 115px; padding-bottom: 10px; }
-.all-inner .rt-block .mid-block .box.last-box .block .up-div tr th .arrows{ padding-left: 15px; }
-.all-inner .rt-block .mid-block .box.last-box .block .up-div tr th .arrows a{ display: inline-block; padding: 0 3px; }
-.all-inner .rt-block .mid-block .box.last-box .block .up-div tr th .arrows a:hover{ opacity:.5;  }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr th{ min-width: 115px; padding-bottom: 10px; }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr th .arrows{ padding-left: 15px; }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr th .arrows a{ display: inline-block; padding: 0 3px; }
+.all-inner .rt-block .mid-block .box.last-box .block .up-div table tr th .arrows a:hover{ opacity:.5;  }
 
 .all-inner .rt-block .mid-block .box.last-box .block .lower-div{ margin:0; padding:15px 0 0 35px; }
-.all-inner .rt-block .mid-block .box.last-box .block .lower-div tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
-.all-inner .rt-block .mid-block .box.last-box .block .lower-div tr td{ min-width: 115px; padding-bottom: 10px; }
-.all-inner .rt-block .mid-block .box.last-box .block .lower-div tr td a, .all-inner .rt-block .content-block.battle-block .tabile-block tr td a{ color: inherit; }
+.all-inner .rt-block .mid-block .box.last-box .block .lower-div table tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
+.all-inner .rt-block .mid-block .box.last-box .block .lower-div table tr td{ min-width: 115px; padding-bottom: 10px; }
 
 .all-inner .rt-block .content-block.battle-block{  background:url(../images/battle-block.png) no-repeat center !important; padding:10px 0 25px !important;  }
 .all-inner .rt-block .all-body .body-box .content-block.battle-block table { width: 100%; padding:0 30px;  }
@@ -260,31 +249,6 @@ img { width: auto; height: auto; max-width: 100% }
 .all-inner .rt-block .content-block.battle-block .complete-block h2{ font-family: 'Oswald', sans-serif; font-size:21px; line-height: 23px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
 
 .all-inner .rt-block .body-box.all-battle{ margin:0; padding:0 0 0; }
-
-#ribbonSummary span
-{
-    margin-right: 2px;
-}
-#sorttable_sortrevind
-{
-    display: inline-block;
-    width: 11px;
-    height: 7px;
-    background: url(/images/sort-down.png) no-repeat center;
-    text-indent: -9999px;
-    margin-left: 8px;
-    vertical-align: middle;
-}
-#sorttable_sortfwdind
-{
-    display: inline-block;
-    width: 11px;
-    height: 7px;
-    background: url(/images/sort-up.png) no-repeat center;
-    text-indent: -9999px;
-    margin-left: 8px;
-    vertical-align: middle;
-}
 
 /*=========== After-Login End ==========*/
 
@@ -510,20 +474,4 @@ body { -webkit-text-size-adjust:none; }
 
 @media screen and (max-width:350px){
 
-}
-/* Maurice bits */
-h3>span.White{
-    color: white;
-}
-table.Tournaments a{
-    color: #b1bf06;
-}
-table.Tournaments a:hover{
-    color: #d1df06;
-}
-h3>input.TextFilter{
-    background: #020202;
-    color: white;
-    padding-bottom: 2px;
-    margin-top: -3px;
 }
