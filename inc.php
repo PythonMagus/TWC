@@ -507,7 +507,12 @@
                         <a href="index.php"><span><img src="/images/inner-logo-title.png" alt=""></span></a>
                     </div>
                     <div class="rt-box">
+<? 
+if ($_SESSION['admin'] && $GLOBALS['id'] && $_SERVER['SCRIPT_NAME'] == '/user.php') { ?>
+            <a href="editUser.php?id=<?= $GLOBALS['id'] ?>">Edit</a>
+<? } else { ?>
                         <a href="/editUser.php">Change Password</a>
+<? } ?>
                         <a href="/logout.php">Log out </a>
                     </div>
                 </div>

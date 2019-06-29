@@ -357,3 +357,9 @@ h3>span.White
 {
     color: white;
 }
+div.Award
+{
+    display: inline-block;
+    min-width: 150px;
+    min-height: 180px;
+}

@@ -40,17 +40,10 @@ if ($stmt->num_rows == 1) {
     $stmt->fetch();
 }
 
-htmlHeader("Status for " . $alias);
+htmlHeader("Status for " . $alias, 'new');
+setLeftBlock($navigationTabs);
+
 ?>
-        <div class="ButtonBar">
-            <button onclick="document.location='/';">Home</button>
-            <button onclick="document.location='battles.php';">All battles</button>
-            <button onclick="document.location='users.php';">All generals</button>
-            <button onclick="document.location='challenge.php?to=<?= $id ?>&from=<?= $_SESSION['userId'] ?>';">Challenge</button>
-<? if ($_SESSION['admin'] && $id) { ?>
-            <button onclick="document.location='editUser.php?id=<?= $id ?>';">Edit</button>
-<? } ?>
-        </div>
 <?
 outputUserDetails($id);
 htmlFooter() ?>
