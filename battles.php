@@ -30,24 +30,46 @@ if (!$stmt->execute()) dLog("fail -SELECT b.id, b.name, gt.type, started, ended,
     "LEFT JOIN tournaments t ON tb.tournamentId = t.id ORDER BY started DESC, b.id, u.alias");
 $stmt->store_result();
 $stmt->bind_result($id, $name, $type, $started, $ended, $state, $userId, $userName, $tournamentId, $tournament);
-htmlHeader("All Battles");
+htmlHeader("All Battles", 'new');
 $lastId = 0;
 $tournaments = array();
+setLeftBlock($navigationTabs);
 ?>
-        <div class="ButtonBar">
-            <button onclick="document.location='/';">Home</button>
-<? if ($_SESSION['admin']) { ?>
-            <button onclick="document.location='registerBattle.php';">Create</button>
-<? } ?>
-        </div>
+        <div id="tab-tournament" class="tab-pane active">
+          <div class="body-box">
+            <div class="title">
+                <h2><span><img src="/html/images/text-all-battles.png" alt=""></span></h2>
+                <div class="button-block">
+                    <a id="home-btn" href="/">Home</a>
+                    <a href="/tournaments.php" id="all-btl-btn">All Tourneys</a>
+<?
+    if ($_SESSION['admin']) echo '<a id="create-btn" href="/registerBattle.php">Create</a>';
+?>
+                </div>
+            </div>
+            <div class="sort-block">
+                <h3>
+                    <span class="White">A list of </span>
+                    <div id="statusFilter">All </div>
+                    <span class="White">battles of type </span>
+                    <div id="typeFilter">All</div>
+                    <span class="White">containing </span>
+                    <input class="TextFilter" placeholder="any">
+                    <span class="White">Text.</span>
+                </h3>
+                <h3>
+                    <span class="White">The battles are in</span>
+                    <div id="tournamentFilter">Any</div>
+                    <span class="White">tournament.</span>
+                </h3>
+            </div>
         <script>
+            var look = '<?= $look ?>';
             var statuses = <?= json_encode($battleStates); ?>;
-            setBattleFilters();
+            setNewBattleFilters();
         </script>
-    <h2>All Battles</h2>
-    <p>A list of <select class="StatusFilter"><option>All</option></select> battles of type <select class="TypeFilter"><option>All</option></select> containing <input class="TextFilter" placeholder="any"> text.</p>
-    <p>The battles are in <select class="TournamentFilter"><option value="Any">Any</option><option value="None">No</option></select> tournament.</p>
-    <table class="Battles sortable">
+        <div class="content-block all-content">
+    <table class="Battles sortable all-battles">
         <tr><th>Started</th><th>Type</th><th>Name</th><th title="Tournament">T</th><th>State</th><th>Ended</th><th>Players</th></tr>
 <?  while ($stmt->fetch()) { 
         if (!$type) $type = "General";

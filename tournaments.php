@@ -47,9 +47,10 @@ setLeftBlock($navigationTabs);
             <div class="title">
                 <h2><span><img src="/html/images/text-all-tournament.png" alt=""></span></h2>
                 <div class="button-block">
-                    <a href="/">Home</a>
+                    <a id="home-btn" href="/">Home</a>
+                    <a href="/battles.php" id="all-btl-btn">All Battles</a>
 <?
-    if ($_SESSION['admin']) echo '<a href="/tournament.php">Create</a>';
+    if ($_SESSION['admin']) echo '<a id="create-btn" href="/tournament.php">Create</a>';
 ?>
                 </div>
             </div>
@@ -67,8 +68,9 @@ setLeftBlock($navigationTabs);
                 </h3>
             </div>
             <div class="content-block">
-                <table class="Tournaments sortable">
-                    <tr><th>Started</th><th>Type</th><th>Game</th><th>Name</th><th>State</th><th>Players</th></tr>
+                <table class="Tournaments sortable"><thead>
+                    <tr><th>Started</th><th>Type</th><th>Game</th><th>Name</th><th>State</th><th>Players</th></tr></thead>
+                    <tbody>
 <?  while ($stmt->fetch()) { 
         if (!$gametype) $gametype = "General";
         $known[$gametype] = true;
@@ -102,6 +104,7 @@ setLeftBlock($navigationTabs);
    } ?>
             </td>
         </tr>
+        </tbody>
     </table>
     <script>
         var gametypes = [

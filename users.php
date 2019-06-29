@@ -35,7 +35,9 @@ setLeftBlock($navigationTabs);
             <div class="button-block">
                 <a href="/" id="home-btn">Home</a>
                 <a href="/battles.php" id="all-btl-btn">All Battles</a>
-                <a href="/editUser.php" id="create-btn">Create</a>
+<?
+    if ($_SESSION['admin']) echo '<a id="create-btn" href="/editUser.php">Create</a>';
+?>
             </div>
         </div>
         <div class="sort-block all-short">
