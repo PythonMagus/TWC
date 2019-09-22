@@ -863,7 +863,7 @@ function marqueeResults(results) {
         target.innerHTML = [
             '<div class="up-two">',
               '<h4>Tournaments:</h4>',
-                '<img src="' + result.url + '" style="max-width: 231px; max-height: 110px;">',
+                '<img src="images/' + result.url + '.png" style="max-width: 231px; max-height: 110px;">',
             '</div>',
             '<div class="mid-text">',
               '<h5>Position: ' + result.type + '</h5>',

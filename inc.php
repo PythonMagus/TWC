@@ -187,6 +187,7 @@
         $stmt->bind_param('ss', $email, $password);
         if (!$stmt->execute()) echo 'fail';
         $stmt->store_result();
+		$_SESSION['admin'] = 0;
         if($stmt->num_rows == 1) { 
             $stmt->bind_result($id, $alias, $admin);
             $stmt->fetch();
@@ -508,10 +509,10 @@
                     </div>
                     <div class="rt-box">
 <? 
-if ($_SESSION['admin'] && $GLOBALS['id'] && $_SERVER['SCRIPT_NAME'] == '/user.php') { ?>
+if ($_SESSION['admin'] && array_key_exists('id', $GLOBALS) && $_SERVER['SCRIPT_NAME'] == '/user.php') { ?>
             <a href="editUser.php?id=<?= $GLOBALS['id'] ?>">Edit</a>
 <? } else { ?>
-                        <a href="/editUser.php">Change Password</a>
+                        <a href="/editUser.php?id=<?=$_SESSION['userId']?>">Change Password</a>
 <? } ?>
                         <a href="/logout.php">Log out </a>
                     </div>

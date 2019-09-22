@@ -1,7 +1,7 @@
 from HTMLParser import HTMLParser
 from htmlentitydefs import name2codepoint
 
-import os, sys, re
+import os, sys, re, io
 
 TABLE = re.compile(r'table\d')
 NAMES = re.compile(r'(\w.*\w) ?\((.*)\)', re.I)
@@ -39,32 +39,55 @@ gametypes = {
     "JTS": 26,
     "HW: LG": 41,
     'SJ: SoS': 17,
-    'RoP': 18
+    'RoP': 18,
+    'TOAW4': 10
 }
 BATTLE = re.compile(r'(' + '|'.join(gametypes.keys()) + ') ?(\S.*)')
 aliases = {
-    'pyhtonmagus': 'python magus',
-    'python': 'python magus',
-    'tyler': 'tyrannical tyler',
-    'zardoz': 'zardoz03',
+	',  wowemail312@gmail.com calvin809': 'calvin809',
+    'andrew': 'andrew camara',
     'armored_lion': 'armoured lion',
     'armoured_lion': 'armoured lion',
-    'marian': 'maars85',
+    'b glapiak': 'b-glapiak',
+    'charles': 'c10sutton',
+	'coach_john': 'coach john',
+	'coalrexnord': 'bukal',
+    'darryl': 'icier',
+    'dmitry': 'dmitryvz',
+    'duane': 'duane clark',
+    'felkin': 'felkin ninesons',
+	'gene': 'gbrenna',
+    'glapiak': 'b-glapiak',
     'hohenstaufen': 'hohen staufen',
     'hohenstaufen234': 'hohen staufen',
-    'andrew': 'andrew camara',
-    'pierro.ferdinand': 'pierro_f',
+	'jack': 'kuriosly',
+	'jakub delekta  beowulf': 'beowulf',
+    'kat': 'speedkat',
     'klaus varna': 'klaus-varna',
     'klausvarna': 'klaus-varna',
-    'ournorthernneighbor': 'north neighbor',
-    'pyyrhos': 'pyrrhos',
-    'duane': 'duane clark',
-    'olaf': 'schmolywar',
-    'mike': 'dralmar',
-    'charles': 'c10sutton',
+    'krec1': 'krec',
     'lordlau': 'lordlau1',
+    'marcus': 'marcus bergmann',
+    'marian': 'maars85',
+    'mike': 'dralmar',
+    'neues_leben': 'neues leben',
+	'northerngrinder': 'north grinder',
+    'olaf': 'schmolywar',
+    'ournorthernneighbor': 'north neighbor',
+	'phil': 'ohno',
+    'pierro.ferdinand': 'pierro_f',
+    'pyhtonmagus': 'python magus',
+    'python': 'python magus',
+    'pyyrhos': 'pyrrhos',
+    'ridcully': 'ridcully70',
     'sabac': 'sabac.red',
-    
+    'sasha': 'papaguspacho',
+	'scotty123': 'scotty',
+	'speed kat': 'speedkat',
+    'terry': 'terry briggs',
+    'tyler': 'tyrannical tyler',
+	'wynebgood': 'waynebgood',
+    'zardoz': 'zardoz03',
 }
 battles = []
 tournaments = []
@@ -106,7 +129,8 @@ class SpreadsheetParser(HTMLParser):
             elif self.state == 'table2':
                 print 'DELETE FROM battles;\nDELETE FROM userbattles;'
                 for alias, name in aliases.items():
-                    userLU[alias] = userLU[name]
+                    if name in userLU:
+						userLU[alias] = userLU[name]
                 self.skipRows = 3
                 print 'ALTER TABLE users AUTO_INCREMENT = %d;' % (len(users) + 1)
                 print 'ALTER TABLE battles AUTO_INCREMENT = 1; ALTER TABLE userbattles AUTO_INCREMENT = 1;'
@@ -356,19 +380,25 @@ class EMailParser(HTMLParser):
             self.state = 'line'
         elif self.state == 'line' and tag == 'a':
             self.txt = ''
+            if 'href' in attrs and attrs['href'][:7] == 'mailto:':
+                self.email = attrs['href'][7:]
+            else:
+                self.email = ''
 
     def handle_endtag(self, tag):
         if not self.state:
             return
         elif tag == 'a' and self.state == 'line':
-            self.email = self.txt
+            if not self.email: self.email = self.txt
             self.state = 'alias'
             self.txt = ''
         elif tag == 'p' and self.state == 'alias':
             self.state = None
-            aliases2 = map(lambda s: s.strip(), self.txt.lower().replace('\n',' ').replace('(','').replace(')','').split('-'))
+            aliases2 = map(lambda s: s.strip(), self.txt.lower().replace('\n',' ').replace('(','').replace(')','').replace(u'\u2013','-').split('-'))
             if len(aliases2) > 1: aliases2.append(''.join(aliases2))
             for alias in aliases2:
+                if alias in aliases:
+                    alias = aliases[alias]
                 if alias in userLU:
                     print "UPDATE users SET email = '%s' WHERE id = %d;" % (self.email, userLU[alias])
                     users[userLU[alias]-1]['email'] = self.email
@@ -376,12 +406,12 @@ class EMailParser(HTMLParser):
             print '-- ERROR : No user named ' + ', '.join(aliases2)
 
 parser = SpreadsheetParser()
-f = open(os.path.expanduser('~/Documents/TWC Admin2.html'))
+f = io.open(os.path.expanduser('~/Documents/TWC Admin3.html'), 'r', encoding='utf-8')
 parser.feed(f.read())
 f.close()
 
 parser = EMailParser();
-f = open(os.path.expanduser('~/Documents/2Member Forum emails, Slack.html'))
+f = io.open(os.path.expanduser('~/Documents/2Member Forum emails, Slack.html'), 'r', encoding='utf-8')
 parser.feed(f.read())
 f.close()
 
@@ -389,4 +419,8 @@ for userRec in users:
     if 'email' not in userRec:
         print "-- ERROR: User %(alias)s has no email" % userRec
 print "-- Patches"
-print "UPDATE users SET email = 'nlancier@gmail.com' WHERE alias = 'lancier';"
+print "UPDATE users SET email = 'nlancier@gmail.com' WHERE alias = 'Lancier';"
+print "UPDATE users SET email = 'dylan.rumizen@gmail.com' WHERE alias = 'SonOfDimir1';"
+print "UPDATE users SET email = 'dbussy137@yahoo.fr' WHERE alias = 'Bussy';"
+print "UPDATE users SET email = 'justfired2003@yahoo.com' WHERE alias = 'Citizen X';"
+print "UPDATE users SET email = 'mikec_81@hotmail.com' WHERE alias = 'MikeC_81';"

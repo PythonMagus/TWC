@@ -363,3 +363,8 @@ div.Award
     min-width: 150px;
     min-height: 180px;
 }
+div.RibbonSet {
+	display: inline-block;
+	width: 300px;
+	vertical-align: top;
+}
