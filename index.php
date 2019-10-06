@@ -16,6 +16,7 @@
 require "inc.php"; 
 
 $errorMsg = "";
+$loggedIn = '';
 if ($_POST)
 {
     $loggedIn = $_SESSION['userId'] = doLogin($_POST['email'],  $_POST['password']);

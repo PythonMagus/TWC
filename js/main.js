@@ -16,7 +16,7 @@ function requestEmailText(action)
 {
     var form = document.querySelector('form.EmailText');
     form.style.display = '';
-    document.querySelector('form.EmailText input[type="hidden"]').value = action;
+    document.querySelector('form.EmailText input[name="action"]').value = action;
     document.querySelector('form.EmailText button.Hide').onclick = function() {form.style.display = 'none'; return false;}
     document.querySelector('form.EmailText h2').innerHTML = action == 'suspend' ? 'You are about to suspend the game' :
         action == 'unsuspend' ? 'You are about to resume the game' :

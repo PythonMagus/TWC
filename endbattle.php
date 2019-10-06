@@ -102,7 +102,7 @@ function rollTheTournament($tournamentId, $winnerId, $loserId) {
 function finishTournament($tournamentId, $firstId, $secondId, $thirdId, $name, $gametypeName, $gametype) {
     global $session, $site, $adminEmail;
     $aliases = array();
-    $recipients = array();
+    $recipients = initialiseRecipients('tournEndRecipients');
     $stmt = $session->db->prepare('SELECT u.id, alias, email FROM users u JOIN tournamentusers tu ON u.id = tu.userid WHERE tournamentid = ? ORDER BY alias');
     $stmt->bind_param("i", $tournamentId);
     if (!$stmt->execute()) dLog("fail - SELECT u.id, alias, email FROM users u JOIN tournamentusers tu ON u.id = tu.userid WHERE tournamentid = $id ORDER BY alias");
@@ -121,7 +121,7 @@ function finishTournament($tournamentId, $firstId, $secondId, $thirdId, $name, $
     while ($stmt->fetch()) {
         $awards[$level] = $awardId;
     }
-    if (array_key_exists(90, $awards)) {
+    if (array_key_exists(90, $awards)) { // participation
         $awardId = $awards[90];
         $stmt = $session->db->prepare('UPDATE tournamentusers tu SET awardid = ? WHERE tournamentid = ?');
         $stmt->bind_param("ii", $awardId, $tournamentId);
@@ -208,7 +208,7 @@ function setUpBattle($tournamentId, $round, $playoff, $gametypeid, $battlename, 
     $stmt = $session->db->prepare("INSERT INTO userbattles (userid, battleid) VALUES (?, ?), (?, ?)");
     $stmt->bind_param('iiii', $playerA, $battleid, $playerB, $battleid);
     if (!$stmt->execute()) dLog("fail - INSERT INTO userbattles (userid, battleid) VALUES ($playerA, $battleid), ($playerB, $battleid)");
-    $recipients = array();
+    $recipients = initialiseRecipients('gameStartRecipients');
     $aliases = array();
     $stmt = $session->db->prepare('SELECT alias, email FROM users WHERE id in (?,?) ORDER BY alias');
     $stmt->bind_param("ii", $playerA, $playerB);
@@ -252,10 +252,12 @@ if ($_POST)
         $stmt2->bind_param('iiii', $result, $points, $userId, $id);
         if (!$stmt2->execute()) dLog("fail - UPDATE userbattles SET result=$result, points = $points WHERE userId = $userId AND battleId = $id");
         $user = getUserDetails($userId);
-        $desc = ($result == 90 ? 'lost' : ($result == 1 ? 'WON!!!' : ("came " . $results[$result] . " in"))) . " $type $name and scored $points points.";
+        $desc = ($result == 99 ? 'lost' : ($result == 1 ? 'WON!!!' : ("came " . $results[$result] . " in"))) . " $type $name and scored $points point(s).";
         dLog("Player {$user['alias']} $desc");
-        sendMail(array($user['email']), "TWC Battle $type $name has completed", 
-            "You $desc\n{$_POST['message']}\n \nCheck the results: $site/battle.php?id=$id\nCheck your ribbons: $site");
+		$recipients = initialiseRecipients('gameEndRecipients');
+		array_push($recipients, $user['email']);
+        sendMail($recipients, "TWC Battle $type $name has completed", 
+            "Hi {$user['alias']},\n\nYou $desc\n{$_POST['message']}\n \nCheck the results: $site/battle.php?id=$id\nCheck your ribbons: $site");
         if ($tournamentId) {
             if (!$winner['id'] || $winner['points'] < $points) $winner = array('id' => $userId, 'points' => $points);
             if (!$loser['id'] || $loser['points'] > $points) $loser = array('id' => $userId, 'points' => $points);

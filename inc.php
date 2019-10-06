@@ -77,6 +77,13 @@
         }
         function open() {
             $this->db = new mysqli('localhost', 'maneschi_twc', 'k,={iJ5e}O!Q', $GLOBALS['DATABASE']);
+			$GLOBALS['params'] = array();
+			$stmt = $this->db->prepare("SELECT `key`, value FROM parameters"); 
+			$stmt->execute();
+			$stmt->store_result();
+			$stmt->bind_result($key, $value);
+			while ($stmt->fetch()) { dLog(" Setting $key to $value"); 
+				$GLOBALS['params'][$key] = $value;}
             return true;
         }
         function close() {
@@ -589,6 +596,11 @@ if ($_SESSION['admin'] && array_key_exists('id', $GLOBALS) && $_SERVER['SCRIPT_N
                     $recipients[$index] = str_replace('@', '_', $email) . "@redwaratah.com";
         mail(join(",", $recipients), $subject, $message, "From: Club Admin <$adminEmail>");
     }
+	function initialiseRecipients($key) {
+		if (array_key_exists($key, $GLOBALS['params']))
+			return explode(",", $GLOBALS['params'][$key]);
+		return array();
+	}
 
     $navigationTabs = array(
         array('alt' => 'My Challenges', 'img' => 'tab-1.png', 'link' => 'challenges.php'),
@@ -596,7 +608,7 @@ if ($_SESSION['admin'] && array_key_exists('id', $GLOBALS) && $_SERVER['SCRIPT_N
         array('alt' => 'All Generals', 'img' => 'tab-3.png', 'link' => 'users.php'),
         array('alt' => 'All Tournaments', 'img' => 'tab-4.png', 'link' => 'tournaments.php'),
     );// Nice table: 90 x 120 + 70 x 77 x 65
-    if ($_SESSION['admin']) array_push($navigationTabs, 
+    if (array_key_exists('admin', $_SESSION) && $_SESSION['admin']) array_push($navigationTabs, 
         array('alt' => 'Register Battle', 'img' => 'tab-5.png', 'link' => 'registerBattle.php'));
 
     $battleStates = array(
@@ -632,5 +644,5 @@ if ($_SESSION['admin'] && array_key_exists('id', $GLOBALS) && $_SERVER['SCRIPT_N
         1 => 'Pyramid'
         /* 2 => 'Round Robin' */
     );
-    $loggedIn = array_key_exists('userId', $_SESSION) ? $_SESSION['userId'] : '';
+    
 ?>

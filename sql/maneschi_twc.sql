@@ -1,25 +1,11 @@
-/*
- * 
- *  This file is part of TWCOoR.
- * 
- *  TWCOoR is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
- *  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- *
- *  TWCOoR is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
- *  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
- *  You should have received a copy of the GNU General Public License along with TWCOoR. 
- *  If not, see http://www.gnu.org/licenses/.
- * 
- */
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 07, 2018 at 03:09 PM
--- Server version: 10.1.31-MariaDB-cll-lve
--- PHP Version: 5.6.30
+-- Generation Time: Oct 06, 2019 at 08:34 AM
+-- Server version: 10.1.41-MariaDB-cll-lve
+-- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -78,6 +64,17 @@ CREATE TABLE `gametypes` (
   `type` varchar(32) NOT NULL,
   `name` varchar(128) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parameters`
+--
+
+CREATE TABLE `parameters` (
+  `key` varchar(32) NOT NULL,
+  `value` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Runftime parameters';
 
 -- --------------------------------------------------------
 
@@ -239,6 +236,12 @@ ALTER TABLE `gametypes`
   ADD UNIQUE KEY `type` (`type`);
 
 --
+-- Indexes for table `parameters`
+--
+ALTER TABLE `parameters`
+  ADD UNIQUE KEY `key` (`key`);
+
+--
 -- Indexes for table `ribbons`
 --
 ALTER TABLE `ribbons`
@@ -307,55 +310,55 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `battles`
 --
 ALTER TABLE `battles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `challenges`
 --
 ALTER TABLE `challenges`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `gametypes`
 --
 ALTER TABLE `gametypes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ribbons`
 --
 ALTER TABLE `ribbons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tournamentawards`
 --
 ALTER TABLE `tournamentawards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tournamentbattles`
 --
 ALTER TABLE `tournamentbattles`
-  MODIFY `unid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `unid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tournaments`
 --
 ALTER TABLE `tournaments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tournamentusers`
 --
 ALTER TABLE `tournamentusers`
-  MODIFY `unid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `unid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

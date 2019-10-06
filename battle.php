@@ -43,7 +43,7 @@ if (!$stmt->fetch())
     exit;
 }
 $emailMessage = "";
-$emailRecipients = array();
+$emailRecipients = initialiseRecipients('gameStartRecipients');
 function newState($newState, $action)
 {
     global $state, $emailMessage, $name, $id, $session, $site, $type;
