@@ -82,8 +82,8 @@
 			$stmt->execute();
 			$stmt->store_result();
 			$stmt->bind_result($key, $value);
-			while ($stmt->fetch()) { dLog(" Setting $key to $value"); 
-				$GLOBALS['params'][$key] = $value;}
+			while ($stmt->fetch()) 
+				$GLOBALS['params'][$key] = $value;
             return true;
         }
         function close() {
@@ -180,11 +180,11 @@
 
     $session = new session();
     // Set to true if using https
-    $session->start_session('_s', false);
+    $session->start_session('_s', true);
 
     function dLog($msg) {
         $now = date('d-M H:i:s');
-        $alias = array_key_exists('alias', $_SESSION) ? $_SESSION['alias'] : 'NotLoggedIn';
+        $alias = isset($_SESSION) && array_key_exists('alias', $_SESSION) ? $_SESSION['alias'] : 'NotLoggedIn';
         file_put_contents("/home/maneschi/logs/twc{$GLOBALS['version']}.log", "$now|$alias|$msg\n", FILE_APPEND | LOCK_EX);
     }
 
@@ -645,4 +645,5 @@ if ($_SESSION['admin'] && array_key_exists('id', $GLOBALS) && $_SERVER['SCRIPT_N
         /* 2 => 'Round Robin' */
     );
     
+	$loggedIn = array_key_exists('userId', $_SESSION) ? $_SESSION['userId'] : '';
 ?>

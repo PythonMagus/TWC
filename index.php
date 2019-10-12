@@ -16,7 +16,6 @@
 require "inc.php"; 
 
 $errorMsg = "";
-$loggedIn = '';
 if ($_POST)
 {
     $loggedIn = $_SESSION['userId'] = doLogin($_POST['email'],  $_POST['password']);
@@ -30,7 +29,12 @@ if ($_POST)
     }
 }
 $user = null;
-if (!$loggedIn) {
+if ($loggedIn) {
+    $user = getUserDetails($loggedIn);
+    htmlHeader("Status for " . $_SESSION['alias'], 'new');
+    setLeftBlock($navigationTabs);
+    outputUserDetails($loggedIn);
+} else { /* logged in */
     htmlHeader("Login page", 'newLogin');
 ?>
         <img class="Logo" src="/images/logo.png">
@@ -68,13 +72,6 @@ if (!$loggedIn) {
                 <a href="forgotPassword.php"><img src="images/password-reset.png" alt=""></a>
             </div>
         </div>
-<? 
-} else { /* logged in */
-    $user = getUserDetails($loggedIn);
-    htmlHeader("Status for " . $_SESSION['alias'], 'new');
-    setLeftBlock($navigationTabs);
-    outputUserDetails($loggedIn);
-?>
 
 <? } 
 htmlFooter() ?>
