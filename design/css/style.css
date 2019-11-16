@@ -120,7 +120,7 @@ img { width: auto; height: auto; max-width: 100% }
 
 .all-inner .rt-block .all-body .body-box .content-block { background:url(../images/table-bg.jpg) no-repeat 0 0; background-size: cover; padding: 32px 35px; margin: 0; }
 .all-inner .rt-block .all-body .body-box .content-block table { width: 100%; }
-.all-inner .rt-block .all-body .body-box .content-block table tr { font-family: 'Oswald', sans-serif; font-size: 18px;  line-height: 20px; font-weight: 400; background: linear-gradient(#eee,  #b3b1b1); color:transparent; -webkit-background-clip: text; background-clip: text;  text-shadow: 3px 2px 11px #00000052; padding: 5px 0 }
+.all-inner .rt-block .all-body .body-box .content-block table tr { font-family: 'Oswald', sans-serif; font-size: 18px;  line-height: 20px; font-weight: 400; background: linear-gradient(#eee,  #b3b1b1); color:#fff; -webkit-background-clip: text; background-clip: text;  text-shadow: 3px 2px 11px #00000052; padding: 5px 0 }
 .all-inner .rt-block .all-body .body-box .content-block table tr th { min-width: 115px; padding-bottom: 10px; }
 .all-inner .rt-block .all-body .body-box .content-block table tr th .arrows { padding-left: 15px;}
 .all-inner .rt-block .all-body .body-box .content-block table tr th .arrows a { display: inline-block; padding: 0 3px; }
@@ -237,7 +237,7 @@ img { width: auto; height: auto; max-width: 100% }
 .all-inner .rt-block .mid-block .box.last-box .block .up-div table tr th .arrows a:hover{ opacity:.5;  }
 
 .all-inner .rt-block .mid-block .box.last-box .block .lower-div{ margin:0; padding:15px 0 0 35px; }
-.all-inner .rt-block .mid-block .box.last-box .block .lower-div table tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
+.all-inner .rt-block .mid-block .box.last-box .block .lower-div table tr{ font-family: 'Oswald', sans-serif; font-size: 18px; line-height: 20px; font-weight: 400; background: linear-gradient(#eee, #b3b1b1); color:#fff; -webkit-background-clip: text; background-clip: text; text-shadow: 3px 2px 11px #00000052; padding: 5px 0; }
 .all-inner .rt-block .mid-block .box.last-box .block .lower-div table tr td{ min-width: 115px; padding-bottom: 10px; }
 
 .all-inner .rt-block .content-block.battle-block{  background:url(../images/battle-block.png) no-repeat center !important; padding:10px 0 25px !important;  }
