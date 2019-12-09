@@ -234,7 +234,7 @@
             $result['setBattles'] = $battles;
             $result['admin'] = boolval($admin);
         }
-        $stmt = $session->db->prepare('SELECT count(*), sum(if(result = 1, 1, 0)), sum(points) FROM userbattles WHERE userid = ? and result != 0');
+        $stmt = $session->db->prepare('SELECT count(*), sum(if(result = 1, 1, 0)), sum(points) FROM userbattles WHERE userid = ? and result not in (0,91)');
         $stmt->bind_param('i', $id);
         if (!$stmt->execute()) echo 'fail';
         $stmt->store_result();
@@ -365,9 +365,9 @@
                             </thead>  
                             <tbody class="lower-div">
 <?
-        $stmt = $session->db->prepare('SELECT b.id, b.started, b.name, gt.name FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = ? and b.state = 1 ORDER BY b.started');
+        $stmt = $session->db->prepare('SELECT b.id, b.started, b.name, gt.name FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = ? and b.state = 1 and ub.result != 91 ORDER BY b.started');
         $stmt->bind_param('i', $id);
-        if (!$stmt->execute()) dLog("fail- SELECT b.id, b.started, b.name, gt.name FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = $id and b.state = 1 ORDER BY b.started");
+        if (!$stmt->execute()) dLog("fail- SELECT b.id, b.started, b.name, gt.name FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = $id and b.state = 1 and ub.result != 91 ORDER BY b.started");
         $stmt->store_result();
         $stmt->bind_result($battleId, $started, $name, $type);
         while ($stmt->fetch())
@@ -401,9 +401,9 @@
                         <th>Points</th>
                       </tr></thead><tbody>
 <?
-        $stmt = $session->db->prepare('SELECT b.id, b.started, b.ended, b.name, gt.name, ub.result, ub.points FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = ? and b.state=2 ORDER BY b.ended DESC');
+        $stmt = $session->db->prepare('SELECT b.id, b.started, b.ended, b.name, gt.name, ub.result, ub.points FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = ? and b.state=2 and ub.result != 91 ORDER BY b.ended DESC');
         $stmt->bind_param('i', $id);
-        if (!$stmt->execute()) dLog("fail - SELECT b.id, b.started, b.ended, b.name, gt.name, ub.result, ub.points FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = $id and b.state=2 ORDER BY b.ended DESC");
+        if (!$stmt->execute()) dLog("fail - SELECT b.id, b.started, b.ended, b.name, gt.name, ub.result, ub.points FROM userbattles ub JOIN battles b ON ub.battleId = b.id LEFT JOIN gametypes gt ON b.typeid = gt.id WHERE userid = $id and b.state=2 and ub.result != 91 ORDER BY b.ended DESC");
         $stmt->store_result();
         $stmt->bind_result($battleId, $started, $ended, $name, $type, $result, $points);
         while ($stmt->fetch())
@@ -631,6 +631,7 @@ if ($_SESSION['admin'] && array_key_exists('id', $GLOBALS) && $_SERVER['SCRIPT_N
         8 => 'Eighth',
         9 => 'Ninth',
         90 => 'Participated',
+		91 => 'Hosted',
         99 => 'Lost'
     );
 

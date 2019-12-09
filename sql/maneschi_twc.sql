@@ -287,7 +287,7 @@ ALTER TABLE `tournamentusers`
 -- Indexes for table `userbattles`
 --
 ALTER TABLE `userbattles`
-  ADD UNIQUE KEY `Pair` (`userId`,`battleId`);
+  ADD PRIMARY KEY (`userId`,`battleId`,`result`);
 
 --
 -- Indexes for table `userribbons`
