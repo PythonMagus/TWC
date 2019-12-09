@@ -234,9 +234,9 @@
             $result['setBattles'] = $battles;
             $result['admin'] = boolval($admin);
         }
-        $stmt = $session->db->prepare('SELECT count(*), sum(if(result = 1, 1, 0)), sum(points) FROM userbattles WHERE userid = ? and result not in (0,91)');
+        $stmt = $session->db->prepare('SELECT sum(if(result = 91, 0, 1)), sum(if(result = 1, 1, 0)), sum(points) FROM userbattles WHERE userid = ? and result != 0');
         $stmt->bind_param('i', $id);
-        if (!$stmt->execute()) echo 'fail';
+        if (!$stmt->execute()) dLog("fail - SELECT sum(if(result = 91, 0, 1)), sum(if(result = 1, 1, 0)), sum(points) FROM userbattles WHERE userid = $id and result != 0");
         $stmt->store_result();
         $stmt->bind_result($battlesInc, $victoriesInc, $pointsInc);
         $stmt->fetch();
