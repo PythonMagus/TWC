@@ -284,7 +284,7 @@
         if (preg_match('/^(win|play|rank|years)$/', $family)) {
             if (array_key_exists($family ."RibbonName", $result)) {
 ?>
-                <img class="Ribbon" src="/images/<?= $result[$family.'RibbonImage'] ?>.png" title="<?= $result[$family .'RibbonName'] ?>">
+                <img class="Ribbon" src="/images/<?= strpos($result[$family.'RibbonImage'],'.') === false ? $result[$family.'RibbonImage'] . ".png" : $result[$family.'RibbonImage'] ?>" title="<?= $result[$family .'RibbonName'] ?>">
 <?
             }
         }
@@ -292,7 +292,7 @@
         {
             if (array_key_exists($family, $result['otherRibbons'])) {
 ?>
-                <img class="Ribbon" src="/images/<?= $result['otherRibbons'][$family] ?>.png" title="<?= $family ?>">
+                <img class="Ribbon" src="/images/<?= strpos($result['otherRibbons'][$family], ".") == false ? $result['otherRibbons'][$family] . ".png" : $result['otherRibbons'][$family] ?>" title="<?= $family ?>">
 <?
             }
         }
